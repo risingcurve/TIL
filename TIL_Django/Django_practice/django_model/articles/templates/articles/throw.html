@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Throw</h1>
+  <form action="/articles/catch/" method="GET">
+    <label for="throwmessage">message: </label>
+    <input type="text" id="throwmessage" name="message" placeholder="message">
+    <input type="submit">
+  </form>
+{% endblock content %}
