@@ -1,0 +1,58 @@
+// 01_weekend.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>요일</h3>
+    <ul id="day">
+      <li>월요일</li>
+      <li>화요일</li>
+      <li>수요일</li>
+      <li>목요일</li>
+      <li>금요일</li>
+    </ul>
+
+    <script>
+      const day = document.querySelector('#day')
+
+      // 1. 요소 만들어 보기
+      // 일요일
+      const sunday = document.createElement('li')
+      // <li></li>
+
+      // 2. 요소를 꾸미고
+      sunday.innerText = '일요일'
+
+      // 3. 요소를 배치하기
+      // node.prepend(elem) : 앞에 추가
+      day.prepend(sunday)
+      // node.append(elems) : 뒤에 추가
+      const saturday = document.createElement('li')
+      saturday.innerText = '토요일'
+      day.append(saturday)
+
+      // node.before(elem) : node의 형제 노드 앞에 추가
+      const startP = document.createElement('p')
+      startP.innerText = '한 주의 시작'
+      day.before(startP)
+
+      // node.after(elem) : node의 형제 노드 뒤에 추가
+      const endP = document.createElement('p')
+      endP.innerText = '한 주의 마무리'
+      day.after(endP)
+
+      // 요소 노드 삭제
+      // const delSunday = day.children[0]
+      // delSunday.remove()
+
+      const moveSunday = day.firstChild
+      day.append(moveSunday)
+
+    </script>
+  </body>
+</html>
