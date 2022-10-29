@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 15px;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .blue {
+        background-color: blue;
+      }
+
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id=number>0</div>
+    <button id="minus">-</button>
+    <button id="plus">+</button>
+
+    <div>
+      <p class="current-color"></p>
+      <div class="red box"></div>
+      <div class="blue box"></div>
+      <div class="green box"></div>
+    </div>
+
+    <script>
+      let number = document.querySelector('#number')
+      const minusBtn = document.querySelector('#minus')
+      const plusBtn = document.querySelector('#plus')
+      // let currentColor = document.querySelector('current-color')
+
+      
+      minusBtn.addEventListener('click', function () {
+        // number.innerText = parseInt(number.innerText) - 1
+        number.innerText--
+        // cnt = cnt(0) - 1
+      })
+      
+      plusBtn.addEventListener('click', function () {
+        // number.innerText = parseInt(number.innerText) + 1
+        number.innerText++
+        // cnt = cnt(0) + 1
+      })
+      
+      changeColor = function (color){
+        const currentColor = document.querySelector('.current-color')
+        currentColor.innerText = color
+        currentColor.style.color = color
+      }
+
+
+      document.querySelector('.red')
+        .addEventListener('mouseover', function (){
+          number.style.color = 'red'
+          currentColor('red')
+          // currentColor.innerText = 'red'
+          // currentColor.style.color = 'red'
+        })
+        
+        document.querySelector('.blue')
+        .addEventListener('mouseover', function (){
+          number.style.color = 'blue'
+          currentColor('blue')
+          // currentColor.innerText = 'blue'
+          // currentColor.style.color = 'blue'
+        })
+        
+        document.querySelector('.green')
+        .addEventListener('mouseover', function (){
+          number.style.color = 'green'
+          currentColor('green')
+        // currentColor.innerText = 'red'
+        // currentColor.style.color = 'blue'
+      })
+
+
+    </script>
+  </body>
+</html>
