@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Index</h1>
+  {% for article in articles %}
+  <div class="card col-4" style="width: 18rem;">
+    <div class="card-body">
+      <a href="{% url 'articles:detail' article.pk %}"><h1>No.{{ article.pk }}</h1></a>
+      {% comment %} <h1>No.{{ article.pk }}</h1> {% endcomment %}
+      <h5 class="card-title">{{ article.title }}</h5>
+      <p class="card-text">{{ article.content }}</p>
+      <p class="card-text">{{ article.created_at }}</p>
+      <p class="card-text">{{ article.updated_at }}</p>
+      {% comment %} <a href="{% url 'articles:detail' article.pk %}" class="btn btn-primary">{{article.pk}}'s detail</a> {% endcomment %}
+    </div>
+  </div>
+  {% endfor %}
+{% endblock content %}

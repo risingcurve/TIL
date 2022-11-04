@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>DETAIL</h1>
+  <h2>{{ article.pk }}번째 글입니다.</h2>
+  <hr>
+  <p>작성자 : {{ article.user }}</p>
+  <p>제목 : {{ article.title }}</p>
+  <p>내용 : {{ article.content }}</p>
+  <p>작성 시각 : {{ article.created_at }}</p>
+  <p>수정 시각 : {{ article.updated_at }}</p>
+  {% if article.user == request.user %}
+    <a href="{% url 'articles:update' article.pk %}">UPDATE</a>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="DELETE">
+    </form>
+  {% endif %}
+  <hr>
+  <h4>댓글 목록</h4>
+  {% if rquest.user.is_authenticated %}
+    {% if comments|length != 0  %}
+      <h5>{{ comments|length }}개의 댓글이 있습니다.</h5>
+    {% endif %}
+
+    {% comment %} 
+      <h5>{{ article.comments.all|length }}</h5>
+      <h5>{{ comments.count }}</h5>
+      <h5>{{ article.comments.count }}</h5> 
+    {% endcomment %}
+    <ul>
+      {% for comment in comments %}
+      <li>
+        {{ comment.user }}: {{ comment.content }} - {{ comment.updated_at }}
+        {% if comment.user == request.user %}
+          <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="DELETE">
+          </form>  
+        {% endif %}
+      </li>
+      {% empty %}
+        <li>
+          <p>댓글이 없어요...</p>
+        </li>
+      {% endfor %}
+    </ul>
+    <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit" value="COMMENT-CREATE">
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+  <hr>
+  <a href="{% url 'articles:index' %}">BACK</a>
+{% endblock content %}

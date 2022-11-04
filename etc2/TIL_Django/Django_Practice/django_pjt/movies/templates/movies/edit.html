@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>#{{movie.pk}}'s edit </h1>
+  <form action="{% url 'movies:update' movie.pk %}" method = "POST">
+    {% csrf_token %}
+    <label for="title">TITLE </label>
+    <input type="text" name="title" value="{{ movie.title }}"><br>
+    <label for="">AUDIENCE </label>
+    <input type="text" name="audience" value="{{ movie.audience }}"><br>
+    <label for="">RELEASE_DATE </label>
+    <input type="date" name="release_date" value="{{ movie.release_date|date:"Y-m-d"}}"><br>
+    <label for="">GENRE </label>
+    <select name="genre">
+      <option value="코미디" {% if movie.genre == '코미디' %} selected {% endif %} >코미디</option>
+      <option value="멜로" {% if movie.genre == '멜로' %} selected {% endif %} >멜로</option>
+      <option value="누아르"  {% if movie.genre == '누아르' %} selected {% endif %} >누아르</option>
+      <option value="공포"  {% if movie.genre == '공포' %} selected {% endif %} >공포</option>
+    </select><br>
+    <label for="">SCORE </label>
+    <input type="text" name="score" value="{{ movie.score }}"><br>
+    <label for="">POSTER_URL </label>
+    <input type="text" name="poster_url" value="{{ movie.poster_url }}"><br>
+    <label for="">DESCRIPTION </label>
+    <textarea name="description">{{ movie.description }}</textarea><br>
+    <input type="submit">
+  </form>
+  <hr>
+  <a href="{% url 'movies:detail' movie.pk %}">[back]</a>
+{% endblock content %}

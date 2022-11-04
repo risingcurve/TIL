@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Articles</h1>
+  <a href="{% url 'articles:create' %}">create</a>
+  <hr>
+  {% for article in articles %}
+    <p>글 번호 : {{ article.pk }}</p>
+    <p>작성자 : {{ article.user }}</p>
+    <p>제목 : {{ article.title }}</p>
+    <p>내용 : {{ article.content }}</p>
+    <form action="{% url 'articles:likes' article.pk %}" method="POST">
+      {% csrf_token %}
+      {% if user in article.like_users.all %}
+      {% comment %} True: 핑크하트 : 좋아요 취소{% endcomment %}
+      <i role="button" class="fa-sharp fa-solid fa-heart"></i>
+      <input type="submit" class="btn btn-primary" value="좋아요 취소">
+      {% else %}
+      {% comment %} False: 텅빈하트 : 좋아요 버튼 누르기{% endcomment %}
+      <i role="button" class="fa-regular fa-heart"></i>
+      <input type="submit" class="btn btn-primary" value="좋아요">
+      {% endif %}
+    </form>
+    <a href="{% url 'articles:detail' article.pk %}">상세 페이지</a>
+    <hr>
+  {% endfor %}
+{% endblock content %}

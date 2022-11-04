@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  <h1>CREATE</h1>
+   <form action="{% url 'movies:create' %}" method='POST'>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type='submit' class='btn btn-primary'>Submit</button>
+    {% endbuttons %}
+   </form>
+   <hr>
+  <a href="{% url 'movies:index' %}" class="btn btn-primary">Back</a>
+{% endblock content %}
