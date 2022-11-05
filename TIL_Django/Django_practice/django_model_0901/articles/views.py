@@ -8,6 +8,7 @@ def index(request):
     }
     return render(request, 'articles/index.html', context)
 
+
 def new(request):
     return render(request, 'articles/new.html', )
 
