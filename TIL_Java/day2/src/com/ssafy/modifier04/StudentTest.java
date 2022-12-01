@@ -1,19 +1,15 @@
-package com.ssafy.modifier02;
+package com.ssafy.modifier04;
+
+import com.ssafy.modifier02.Student;
 
 import java.util.Scanner;
-import java.util.SimpleTimeZone;
 
 public class StudentTest {
-    static Student[] students = new Student[10];
-    static int size = 0;
-
-
     public static void main(String[] args) {
-
-
         Scanner sc = new Scanner(System.in);
+        StudentManager sm = new StudentManager.getManager();
         int sel;
-        
+
         do {
             System.out.println("번호를 입력하세요.");
             System.out.println("1. 학생 추가");
@@ -30,22 +26,15 @@ public class StudentTest {
                 int age = sc.nextInt();
                 System.out.print("전공 : ");
                 String major = sc.next();
-
-                // 직접 빈껍떼기를 만들고 하나하나 세팅
-//                Student st = new Student();
-//                st.setName(name);
-//                st.setAge(age);
-//                st.setMajor(major);
-
                 Student st = new Student(name, age, major);
-                students[size++] = st;
+                sm.addStudent(st);
 
             } else if (sel == 2) {
                 // 학생 조회
                 System.out.println("학생을 조회합니다.");
                 System.out.print("이름 : ");
                 String name = sc.next();
-                Student st = getStudent(name);
+                Student st = sm.getStudent(name);
                 if(st == null) {
                     System.out.println("학생을 못 찾았음.");
                 } else {
@@ -63,29 +52,10 @@ public class StudentTest {
                 String name = sc.next();
                 System.out.print("전공 : ");
                 String major = sc.next();
-                changeMajor(name, major);
+                sm.changeMajor(name, major);
             }
         } while(sel != 0);
-        
+
     } // main
-
-    static void changeMajor(String name, String major) {
-        Student s = getStudent(name);
-        if(s != null) {
-            s.setMajor(major);
-        }
-    }
-
-    static Student getStudent(String name) {
-        for (int i = 0; i < size; i++) {
-            if(name.equals(students[i].getName())) {
-                // 찾았어? 그러면 바로 리턴
-                return students[i];
-            }
-        }
-
-        return null;
-    }
-
 
 }
