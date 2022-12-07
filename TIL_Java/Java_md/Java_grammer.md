@@ -132,7 +132,7 @@ public class Calculator {
 // 실행 결과 : 3
 ```
 
-### 변수 선언
+### 변수
 
 컴퓨터 메모리(RAM)는 수많은 번지들로 구성된 데이터 저장 공간이다. 프로그램은 데이터를 메모리에 저장하고 읽는 작업을 지속적으로 수행한다. 이때 데이터를 어디에, 어떤 방식으로 저장할지 정해져 있지 않다면 메모리 관리가 매우 어려워질 것이다. Java는 이러한 문제를 해결하기 위해 변수를 사용한다.
 
@@ -174,4 +174,53 @@ int value = 40;
 int result = value + 20;
 ```
 
+변수는 출력문이나 연산식에 사용되어 변수값을 활용한다. 다음 코드는 변수를 문자열과 결합 후 출력하거나 연산식에서 활용하는 모습을 보여준다.
 
+```
+package ch02.sec01;
+
+public class VariableUseExample {
+    public static void main(String[] args) {
+        int hour = 3;
+        int minute = 5;
+        System.out.println(hour + "시간" + minute + "분");
+
+        int totalMinute = (hour*60) + minute;
+        System.out.println("총" + totalMinute + "분");
+    }
+}
+
+// 실행 결과
+// 3시간 5분
+// 총 185분
+```
+
+그리고 변수는 또 다른 변수에 대입되어 메모리 간에 값을 복사할 수 있다. 다음 코드를 보자.
+
+```
+int x = 30;     // 변수 x에 30을 대입
+int y = x;      // 변수 y에 변수 x 값을 대입
+```
+
+다음 코드는 두 변수의 값을 교환하는 방법을 보여준다. 두 변수의 값을 교환하기 위해서 새로운 변수를 선언하였다.
+
+```
+package ch02.sec01;
+
+public class VariableExchangeExample {
+    public static void main(String[] args) {
+        int x = 3;
+        int y = 5;
+        System.out.println("x:" + x + ", y:" + y);
+
+        int z = x;
+        x = y;
+        y = z;
+        System.out.println("x:" + x + ", y:" + y);
+    }
+}
+
+// 실행 결과
+// x:3, y:5
+// x:5, y:3
+```
