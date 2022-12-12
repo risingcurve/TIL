@@ -224,7 +224,13 @@ public class VariableExchangeExample {
 // x:5, y:3
 ```
 
-### 자료형
+
+
+
+
+### 자료형 : 숫자 타입
+
+
 
 변수는 선언될 때의 타입에 따라 저장할 수 있는 값의 종류와 허용 범위가 달라진다. 자바는 정수, 실수, 논리값을 저장할 수 있는 기본 타입 8개를 다음과 같이 제공한다.
 
@@ -285,5 +291,36 @@ byte < short < int < long < float < double
   int a = 0xB3;
   int b = 0x2A0F;
   ```
-  
-  
+
+
+
+다음 코드는 다양한 정수 리터럴을 int 타입 변수에 대입하고 10진수로 출력한다.
+
+```java
+package ch02.sec02
+
+public class IntegerLiteralExample {
+    public static void main(String[] args) {
+        int var1 = 0b1011;
+        int var2 = 0206;
+        int var3 = 365;
+        int var4 = 0xB3;
+
+        System.out.println("var1: " + var1);
+        System.out.println("var2: " + var2);
+        System.out.println("var3: " + var3);
+        System.out.println("var4: " + var4);
+    }
+}
+
+
+// 실행 결과
+// var1: 11
+// var2: 134
+// var3: 365
+// var4: 179
+```
+
+
+
+자료형 : 숫자 타입
