@@ -35,7 +35,6 @@ public class SortTest2 {
 		
 		for(Person p : list) {
 			System.out.println(p);
-		}
-	
-		
-}}
+		}		
+	}
+}
