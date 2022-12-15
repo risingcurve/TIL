@@ -224,13 +224,7 @@ public class VariableExchangeExample {
 // x:5, y:3
 ```
 
-
-
-
-
 ### 자료형 : 숫자 타입
-
-
 
 변수는 선언될 때의 타입에 따라 저장할 수 있는 값의 종류와 허용 범위가 달라진다. 자바는 정수, 실수, 논리값을 저장할 수 있는 기본 타입 8개를 다음과 같이 제공한다.
 
@@ -252,11 +246,7 @@ byte < short < int < long < float < double
  char < int < long < float < double
 ```
 
-
-
 코드에서 프로그래머가 직접 입력한 값을 리터럴이라고 하는데, 변수에 대입할 정수 리터럴은 진수에 따라 작성하는 방법이 다르다.
-
-
 
 - 2진수 : 0b 또는 0B로 시작하고 0과 1로 작성
   
@@ -264,8 +254,6 @@ byte < short < int < long < float < double
   int a = 0b1011;
   int b = 0B10110;
   ```
-  
-  
 
 - 8진수 : 0으로 시작하고 0~7 숫자로 작성
   
@@ -273,8 +261,6 @@ byte < short < int < long < float < double
   int a = 013;
   int b = 0206;
   ```
-  
-  
 
 - 10진수 : 소수점이 없는 0~9 숫자로 작성
   
@@ -282,8 +268,6 @@ byte < short < int < long < float < double
   int a = 13;
   int b = 589;
   ```
-  
-  
 
 - 16진수 : 0x 또는 0X로 시작하고 0~9 숫자나 A, B, C, D, E, F 또는 a, b, c, d, e, f로 작성
   
@@ -291,8 +275,6 @@ byte < short < int < long < float < double
   int a = 0xB3;
   int b = 0x2A0F;
   ```
-
-
 
 다음 코드는 다양한 정수 리터럴을 int 타입 변수에 대입하고 10진수로 출력한다.
 
@@ -323,7 +305,12 @@ public class IntegerLiteralExample {
 
 
 
-자료형 : 숫자 타입
+
+
+### 자료형 : 숫자 타입
 
 
 
+
+
+### 
