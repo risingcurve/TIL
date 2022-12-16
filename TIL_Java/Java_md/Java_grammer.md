@@ -303,14 +303,6 @@ public class IntegerLiteralExample {
 // var4: 179
 ```
 
-
-
-
-
 ### 자료형 : 숫자 타입
-
-
-
-
 
 ### 
