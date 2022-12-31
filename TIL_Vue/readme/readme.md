@@ -6,6 +6,12 @@
 
 하위 -> 상위 로는 기본적으로 이벤트만 전달 가능하다.
 
+
+
+
+
+
+
 <!--parentComponent.vue-->
 
 <template>
