@@ -68,3 +68,7 @@ revert -> 커밋을 새로 쌓는다
   1. Fast Forward
   2. 3 way Merge
   3. Merge Conflict
+
+
+
+
