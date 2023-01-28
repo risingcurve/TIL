@@ -27,3 +27,5 @@
 * `rm <file_name>` : 파일 삭제
 
 * `rm -r <folder_name>` : 폴더 삭제
+
+
