@@ -863,22 +863,6 @@ Newwork : 모바일 접속 주소
 
 이렇게 전달한 데이터는 이벤트와 연결된 부모 컴포넌트의 핸들러
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Vuex
 
 ## Vuex
@@ -1087,3 +1071,439 @@ export default new Vuex.Store({
   - 별다른 액션이 필요하지 않은 경우도 있음(생략 가능)
 - component에서 데이터를 사용하기 위한 데이터의 흐름
   - state ⇒ (getters) ⇒ component
+
+
+
+## Vuex 실습
+
+### 시작하기 전 - Object method shorthand
+
+- 이제부터는 객체 메서드 축약형을 사용할 것
+  
+  ```jsx
+  // before
+  const obj1 = {
+      addValue: function (value) {
+          return value
+      },
+  }
+  
+  // after
+  const obj2 = {
+      addValue(value) {
+          return value
+      },
+  }
+  ```
+
+### src / store / index.js
+
+- vuex의 핵심 컨셉 4가지
+  
+  - state
+  
+  - getters
+  
+  - mutations
+  
+  - actions
+    
+    ```jsx
+    // store/index.js
+    
+    import Vue from 'vue'
+    import Vuex from 'vuex'
+    
+    Vue.use(Vuex)
+    
+    export default new Vuex.Store({
+      state: {
+      },
+      getters: {
+      },
+      mutations: {
+      },
+      actions: {
+      },
+      modules: {
+      }
+    })
+    ```
+
+### state
+
+- 중앙에서 관리하는 모든 상태 정보
+
+- `$store.state`로 접근 가능
+
+- store의 state에 message 데이터 정의
+  
+  ```jsx
+  // store/index.js
+  
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  
+  Vue.use(Vuex)
+  
+  export default new Vuex.Store({
+    state: {
+          message: 'message in store'
+    },
+    getters: {
+    },
+    mutations: {
+    },
+    actions: {
+    },
+    modules: {
+    }
+  })
+  ```
+
+- component에서 state 적용
+  
+  ```jsx
+  // App.vue
+  
+  <template>
+    <div id="app">
+      <h1>{{ $store.state.message }}</h1>
+    </div>
+  </template>
+  ```
+
+- $store.state로 바로 접근하기 보다 computed에 정의 후 접근하는 것을 권장
+  
+  ```jsx
+  // App.vue
+  
+  <template>
+    <div id="app">
+      <h1>{{ message }}</h1>
+    </div>
+  </template>
+  
+  <script>
+      export default {
+        name: 'App',
+        computed: {
+          message() {
+            return this.$store.state.message
+          },
+        }
+      }
+  </script>
+  ```
+
+- Vue 개발자 도구에서의 Vuex
+
+- 관리 화면을 Vuex로 변경
+
+- 관리되고 있는 state 확인 가능
+
+### actions
+
+- state를 변경할 수 있는 **mutations 호출**
+
+- component에서 **`dispatch()`에 의해 호출됨**
+
+- `dispatch(A, B)`
+  
+  - A : 호출하고자 하는 actions 함수
+  - B : 넘겨주는 데이터(payload)
+
+- actions에 정의된 changeMessage 함수에 데이터 전달하기
+
+- component에서 actions는 dispatch()에 의해 호출됨
+  
+  ```jsx
+  <template>
+    <div id="app">
+      <h1>{{ message }}</h1>
+      <input type="text" @keyup.enter="changeMessage" v-model="inputData">
+    </div>
+  </template>
+  
+  <script>
+      export default {
+          ...
+        data() {
+          return {
+            inputData: null,
+          }
+        },
+        methods: {
+          changeMessage() {
+            const newMessage = this.inputData
+            **this.$store.dispatch('changeMessage', newMessage)**
+            this.inputData = null
+          },
+        },
+      }
+  </script>
+  ```
+
+- actions의 첫 번째 인자는 `context`
+  
+  - context는 store의 전반적인 속성을 모두 가지고 있으므로 context.state와 context.getters를 통해 mutations를 호출하는 것이 모두 가능
+  - dispatch()를 사용해 다른 actions도 호출할 수 있음
+  - **단 actions에서 state를 직접 조작하는 것은 삼가야 함**
+
+- actions의 두 번째 인자는 `payload`
+  
+  - 넘겨준 데이터를 받아서 사용
+  
+  ```jsx
+  // store/index.js
+  
+  export default new Vuex.Store({
+      ...
+      actions: {
+      changeMessage(context,newMessage) {
+        // console.log(context)
+        // console.log(message)
+      },
+    },
+      ...
+  })
+  ```
+
+### mutations
+
+“actions에서 commit()을 통해 mutations 호출하기”
+
+- mutations는 state를 변경하는 유일한 방법
+
+- component 또는 actions에서 **commit()에 의해 호출됨**
+
+- `commit(A, B)`
+  
+  - A : 호출하고자 하는 mutations 함수
+  - B : payload
+  
+  ```jsx
+  // store/index.js
+  
+  export default new Vuex.Store({
+      ...
+  
+      actions: {
+        changeMessage(context,newMessage) {
+        **context.commit('CHANGE_MESSAGE', newMessage)**
+      },
+    },
+      ...
+  })
+  ```
+
+“mutations 함수 작성하기”
+
+- mutations는 state를 변경하는 유일한 방법
+
+- mutations 함수의
+  
+  - 첫 번째 인자는 state
+  - 첫 번째 인자는 payload
+  
+  ```jsx
+  // store/index.js
+  
+  export default new Vuex.Store({
+      ...
+  
+      mutations: {
+        CHANGE_MESSAGE(state, newMessage) {
+          // console.log(state)
+          // console.log(newMessage)
+          state.message = newMessage
+        }
+      },
+      ...
+  })
+  ```
+
+### getters
+
+“getters 사용해 보기”
+
+- **getters는 state를 활용한 새로운 변수**
+
+- getter 함수의
+  
+  - 첫 번째 인자는 state
+  - 첫 번째 인자는 getters
+  
+  ```jsx
+  export default new Vuex.Store({
+  ...
+  
+  getters: {
+      messageLength(state) {
+        return state.message.length
+      },
+    },
+      ...
+  })
+  ```
+
+“getter의 다른 함수 사용해 보기”
+
+```jsx
+// store/index.js
+
+export default new Vuex.Store({
+    ...
+
+  getters: {
+    messageLength(state) {
+      return state.message.length
+    },
+
+    // messageLength를 이용해서 새로운 값을 계산
+    doubleLength(state, getters) {
+      return getters.messageLength * 2
+    },
+  },
+    ...
+})
+```
+
+“getters 출력하기”
+
+- getters 역시 state와 마찬가지로 computed에 정의해서 사용하는 것을 권장
+  
+  ```jsx
+  // App.vue
+  
+  ...
+  <script>
+      export default {
+          ...
+          computed: {
+      message() {
+        return this.$store.state.message
+      },
+      messageLength() {
+        return this.$store.getters.messageLength
+      },
+      doubleLength() {
+        return this.$store.getters.doubleLength
+      },
+    },
+      ...
+  }
+  </script>
+  ```
+  
+  ```jsx
+  // App.vue
+  
+  <template>
+    <div id="app">
+      <h1>{{ message }}</h1>
+      <h2>입력된 문자의 길이는 {{ messageLength }}</h2>
+      <h3>x2 : {{ doubleLength }}</h3>
+      <input type="text" @keyup.enter="changeMessage" v-model="inputData">
+    </div>
+  </template>
+  ```
+
+# Lifecycle Hooks
+
+---
+
+## Lifecycle Hooks
+
+---
+
+### Lifecycle Hooks
+
+- 각 Vue 인스턴스는 생성과 소멸의 과정 중 단계별 초기화 과정을 거침
+  - Vue 인스턴스가 생성된 경우, 인스턴스를 DOM에 마운트하는 경우, 데이터가 변경되어 DOM를 업데이트하는 경우 등
+- 각 단계가 트리거가 되어 특정 로직을 실행할 수 있음
+- 이를 Lifecycle Hooks이라고 함
+
+### Lifecycle Hooks 맛보기
+
+### created
+
+- Vue instance가 생성된 후 호출됨
+
+- data, computed 등의 설정이 완료된 상태
+
+- 서버에서 받은 데이터를 vue instance의 data에 할당하는 로직을 구현하기 적합
+
+- 단 mount되지 않아 요소에 접근할 수 없음
+
+- 자바스크립트에서 학습한 Dog API 활용 실습의 경우 버튼을 누르면 강아지 사진을 보여줌
+
+- 버튼을 누르지 않아도 첫 실행 시 기본 사진이 출력되도록 하고 싶다면?
+  
+  ⇒ created 함수에 강아지 사진을 가져오는 함수를 추가
+  
+  ```jsx
+  // components/DogComponent.vue
+  
+  export default {
+      ...
+      created() {
+          this.getDogImage()
+      },
+  ```
+
+### mounted
+
+- Vue instance가 요소에 mount된 후 호출됨
+
+- mount된 요소를 조작할 수 있음
+  
+  ```jsx
+  // components/DogComponent.vue
+  
+  export default {
+      ...
+      mounted() {
+          const btn = document.querySelector('button')
+          btn.innerText = '멍멍!'
+      },
+  ```
+
+- created의 경우, mount되기 전이기 때문에 DOM에 접근할 수 없으므로 동작하지 않음
+
+- mounted는 주석 처리
+
+### updated
+
+- 데이터가 변경되어 DOM에 변화를 줄 때 호출됨
+
+### Lifecycle Hooks 특징
+
+- instance마다 각각의 Lifecycle을 가지고 있음
+
+- Lifecycle Hooks는 컴포넌트 별로 정의할 수 있음
+
+- 현재 해당 프로젝트는
+  
+  App.vue 생성 ⇒ ChildComponent 생성 ⇒ ChildComponent 부착 ⇒ App.vue 부착 ⇒ ChildComponent 업데이트 순으로 동작한 것
+
+# Todo with Vuex
+
+---
+
+### 개요
+
+- Vuex를 사용한 Todo 프로젝트 만들기
+- 구현 기능
+  - Todo CRUD
+  - Todo 개수 계산
+    - 전체 Todo
+    - 완료된 Todo
+    - 미완료된 Todo
+- 컴포넌트 구성
+
+### 중간 정리
+
+- Vue 컴포넌트의 method에서 dispatch()를 사용해 actions 메서드를 호출
+- Actions에 정의된 함수는 commit()을 사용해 mutations를 호출
+- Mutations에 정의된 함수가 최종적으로 state를 변경
