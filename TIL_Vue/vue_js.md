@@ -1072,10 +1072,7 @@ export default new Vuex.Store({
 - component에서 데이터를 사용하기 위한 데이터의 흐름
   - state ⇒ (getters) ⇒ component
 
-
-
 <<<<<<< HEAD
-
 
 # Vue Router
 
@@ -1200,7 +1197,9 @@ export default new Vuex.Store({
 ### src/Views
 
 - router-view에 들어갈 component 작성
+
 - 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
+
 - 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님# Vue Router
   
   ---
@@ -1210,6 +1209,7 @@ export default new Vuex.Store({
   ---
   
   ### Routing
+  
   - 네트워크에서 경로를 선택하는 프로세스
   - 웹 서비스에서의 라우팅
     - 유저가 방문한 URL에 대해 적절한 결과를 응답하는 것
@@ -1325,8 +1325,9 @@ export default new Vuex.Store({
   - router-view에 들어갈 component 작성
   - 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
   - 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님
-=======
-## Vuex 실습
+    =======
+    
+    ## Vuex 실습
 
 ### 시작하기 전 - Object method shorthand
 
@@ -1759,4 +1760,135 @@ export default new Vuex.Store({
 - Vue 컴포넌트의 method에서 dispatch()를 사용해 actions 메서드를 호출
 - Actions에 정의된 함수는 commit()을 사용해 mutations를 호출
 - Mutations에 정의된 함수가 최종적으로 state를 변경
->>>>>>> 8d1de578dcc4f66070e372e504a3ca1fc3f41a43
+
+
+
+
+
+
+
+# Vue Router
+
+---
+
+## Routing
+
+---
+
+### Routing
+
+- 네트워크에서 경로를 선택하는 프로세스
+- 웹 서비스에서의 라우팅
+  - 유저가 방문한 URL에 대해 적절한 결과를 응답하는 것
+- 예시
+  - /articles/index/에 접근하면 articles의 index에 대한 결과를 보내 줌
+
+### Routing in SSR
+
+- Server가 모든 라우팅을 통제 (← 장고의 경우 views.py가 통제)
+- URL로 요청이 들어오면 응답으로 완성된 HTML 제공
+  - Django로 보낸 요청의 응답 HTML은 완성본인 상태였음
+- 결론적으로, Routing(URL)에 대한 결정권을 서버가 가짐
+
+### Routing in SPA / CSR
+
+- 서버는 하나의 HTML(index.html) 만을 제공
+- 이후에 모든 동작은 하나의 HTML 문서 위에서 자바스크립트 코드를 활용
+  - DOM을 그리는데 필요한 추가적인 데이터가 있다면 axios와 같은 AJAX 요청을 보낼 수 있는 도구를 사용하여 데이터를 가져오고 처리
+- 즉 하나의 URL만 가질 수 있음
+
+### Why routing?
+
+- 그럼 동작에 따라 URL이 반드시 바뀌어야 하나?
+  
+  그렇지는 않다. 단 유저의 사용성 관점에서는 필요함
+
+- Routing이 없다면,
+  
+  - 유저가 URL을 통한 페이지의 변화를 감지할 수 없음
+  - 페이지가 무엇을 렌더링 중인지에 대한 상태를 알 수 없음
+    - 새로고침 시 처음 페이지로 돌아감
+    - 링크를 공유할 시 처음 페이지만 공유 가능
+  - 브라우저의 뒤로 가기 기능을 사용할 수 없음
+
+## Vue Router
+
+---
+
+### Vue Router
+
+- Vue의 공식 라우터
+- SPA 상에서 라우팅을 쉽게 개발할 수 있는 기능을 제공
+- 라우트(routes)에 컴포넌트를 매핑한 후, 어떤 URL에서 렌더링 할지 알려줌
+  - 즉, SPA를 MPA처럼 URL을 이동하면서 사용 가능
+  - SPA의 단점 중 하나인 “URL이 변경되지 않는다.”를 해결
+- [참고] MPA(Multiple Page Application)
+  - 여러 개의 페이지로 구성된 애플리케이션
+  - SSR 방식으로 렌더링
+
+### Vue Router 시작하기
+
+- Vuex와 마찬가지의 방식으로 설치 및 반영
+  
+  ```bash
+  $ vue create vue-router-app    // Vue 프로젝트 생성
+  
+  $ cd vue-router-app            // 디렉토리 이동
+  
+  $ vue add router               // Vue CLI를 통해 router plugin 적용
+  ```
+
+- history mode 사용여부 → Yes
+  
+  ```bash
+  ? Use history mode for router? (Requires proper server setup for index fallback 
+  in production) (**Y**/n)
+  ```
+
+### History mode
+
+- 브라우저의 History API를 활용한 방식
+  
+  - 새로고침 없이 URL 이동 기록을 남길 수 있음
+
+- 우리에게 익숙한 URL 구조로 사용 가능
+  
+  - 예시) http://localhost:8080/index
+
+- [참고] History mode를 사용하지 않으면 Default 값인 hash mode로 설정됨(’#’을 통해 URL을 구분하는 방식)
+  
+  - 예시) [http://localhost:8080#index](http://localhost:8080#index)
+
+- App.vue
+  
+  - router-link 요소 및 router-view가 추가됨
+
+### router-link
+
+- a 태그와 비슷한 기능 → URL을 이동시킴
+  - routes에 등록된 컴포넌트와 매핑됨
+  - 히스토리 모드에서 router-link는 클릭 이벤트를 차단하여 a 태그와 달리 브라우저가 페이지를 다시 로드하지 않도록 함
+  - 목표 경로는 ‘to’ 속성으로 지정됨
+  - 기능에 맞게 HTML에서 a 태그로 rendering 되지만, 필요에 따라 다른 태그로 바꿀 수 있음
+
+### router-view
+
+- 주어진 URL에 대해 일치하는 컴포넌트를 렌더링하는 컴포넌트
+- 실제 component가 DOM에 부착되어 보이는 자리를 의미
+- router-link를 클릭하면 route에 매핑된 컴포넌트를 렌더링
+- Django에서의 block tag와 비슷함
+  - App.vue는 base.html의 역할
+  - router-view는 block 태그로 감싼 부분
+
+### src/router/index.js
+
+- 라우터에 관련된 정보 및 설정이 작성되는 곳
+- Django에서의 urls.py에 해당
+- routes에 URL와 컴포넌트를 매핑
+- Django와의 비교
+
+### src/Views
+
+- router-view에 들어갈 component 작성
+- 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
+- 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님
