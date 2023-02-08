@@ -1323,7 +1323,9 @@ export default new Vuex.Store({
   ### src/Views
   
   - router-view에 들어갈 component 작성
+  
   - 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
+  
   - 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님
     =======
     
@@ -1761,12 +1763,6 @@ export default new Vuex.Store({
 - Actions에 정의된 함수는 commit()을 사용해 mutations를 호출
 - Mutations에 정의된 함수가 최종적으로 state를 변경
 
-
-
-
-
-
-
 # Vue Router
 
 ---
@@ -1892,3 +1888,116 @@ export default new Vuex.Store({
 - router-view에 들어갈 component 작성
 - 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
 - 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님
+
+
+
+## Vue Router 실습
+
+---
+
+### 주소를 이동하는 2가지 방법
+
+1. 선언적 방식 네비게이션
+2. 프로그래밍 방식 네비게이션
+
+### 선언적 방식 네비게이션
+
+- router-link의 ‘to’ 속성으로 주소 전달
+  - routes에 등록된 주소와 매핑된 컴포넌트로 이동
+
+### 프로그래밍 방식 네비게이션
+
+- Vue 인스턴스 내부에서 라우터 인스턴스에 $router로 접근할 수 있음
+- 다른 URL로 이동하려면 this.$router.push를 사용
+  - history stack에 이동할 URL을 넣는(push) 방식
+  - history stack에 기록이 남기 때문에 사용자가 브라우저의 뒤로 가기 버튼을 클릭하면 이전 URL로 이동할 수 있음
+- 결국 <router-link :to=”…”>를 클릭하는 것과 $router.push(…)를 호출하는 것은 같은 동작
+
+### Dynamic Route Matching
+
+- 동적 인자 전달
+  - URL의 특정 값을 변수처럼 사용할 수 있음
+- ex) Django에서의 variable routing
+
+### Dynamic Route Matching - 선언적 방식 네비게이션
+
+### lazy-loading
+
+- 모든 파일을 한 번에 로드하려고 하면 모든 걸 다 읽는 시간이 매우 오래 걸림
+- 미리 로드를 하지 않고 특정 라우트에 방문할 때 매핑된 컴포넌트의 코드를 로드하는 방식을 활용할 수 있음
+  - 모든 파일을 한 번에 로드하지 않아도 되기 때문에 최초에 로드하는 시간이 빨라짐
+  - 당장 사용하지 않을 컴포넌트는 먼저 로드하지 않는 것이 핵심
+
+## Navigation Guard
+
+---
+
+### 네비게이션 가드
+
+- Vue router를 통해 특정 URL에 접근할 때 다른 url로 redirect를 하거나 해당 URL로의 접근을 막는 방법
+  - Ex) 사용자의 인증 정보가 없으면 특정 페이지에 접근하지 못하게 함
+
+### 네비게이션 가드의 종류
+
+- 전역 가드
+  - 애플리케이션 전역에서 동작
+- 라우터 가드
+  - 특정 URL에서만 동작
+- 컴포넌트 가드
+  - 라우터 컴포넌트 안에 정의
+
+## 전역 가드
+
+---
+
+### Global Before Guard
+
+- 다른 url 주소로 이동할 때 항상 실행
+- router/index.js에 `router.beforeEach()`를 사용하여 설정
+- 콜백 함수의 값으로 다음과 같이 3개의 인자를 받음
+  - to : 이동할 URL 정보가 담긴 Route 객체
+  - from : 현재 URL 정보가 담긴 Route 객체
+  - next : 지정한 URL로 이동하기 위해 호출하는 함수
+    - 콜백 함수 내부에서 반드시 한 번만 호출되어야 함
+    - 기본적으로 to에 해당하는 URL로 이동
+- URL이 변경되어 화면이 전환되기 전 router.beforeEach()가 호출됨
+  - 화면이 전환되지 않고 대기 상태가 됨
+- 변경된 URL로 라우팅하기 위해서는 next()를 호출해 줘야 함
+  - next()가 호출되기 전까지 화면이 전환되지 않음
+
+### Global Before Guard 실습
+
+- ‘/home’으로 이동하더라도 라우팅이 되지 않고 아래와 같이 로그만 출력됨
+- next()가 호출되지 않으면 화면이 전환되지 않음
+- next()가 호출되어야 화면이 전환됨
+- About으로 이동해 보기
+  - to에는 이도앟ㄹ
+
+## 컴포넌트 가드
+
+---
+
+### 컴포넌트 가드
+
+- 특정 컴포넌트 내에서 가드를 지정하고 싶을 때 사용
+- `beforeRouteUpdate()`
+  - 해당 컴포넌트를 렌더링하는 경로가 변경될 때 실행
+
+### Params 변화 감지
+
+- about에서 jun에게 인사하는 페이지로 이동
+
+## 404 Not Found
+
+---
+
+### 404 Not Found
+
+- 사용자가 요청한 리소스가 존재하지 않을 때 응답
+
+### 요청한 리소스가 존재하지 않는 경우
+
+### 형식은 유효하지만 특정 리소스를 찾을 수 없는 경우
+
+- 예시) Django에게 articles/1 로 요청을 보냈지만, 1번 게시글이 삭제된 상태
+  - 이때는 path: ‘*’를 만나 404 page가 렌더링 되는 것이 아니라 기존에 명시한 articles/:id/에 대한 component가 렌더링됨
