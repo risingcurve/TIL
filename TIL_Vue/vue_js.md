@@ -1889,8 +1889,6 @@ export default new Vuex.Store({
 - 기존에 컴포넌트를 작성하던 곳은 components 폴더 뿐이었지만 이제 두 폴더로 나누어짐
 - 각 폴더 안의 .vue 파일들이 기능적으로 다른 것은 아님
 
-
-
 ## Vue Router 실습
 
 ---
@@ -2001,3 +1999,143 @@ export default new Vuex.Store({
 
 - 예시) Django에게 articles/1 로 요청을 보냈지만, 1번 게시글이 삭제된 상태
   - 이때는 path: ‘*’를 만나 404 page가 렌더링 되는 것이 아니라 기존에 명시한 articles/:id/에 대한 component가 렌더링됨
+
+
+
+
+
+---
+
+# Vue.js props 사용 방법
+
+### ⭐️ props 란 ?
+
+부모 컴포넌트에서 자식 컴포넌트로
+
+데이터를 전달할때 사용되어지는
+
+단방향 데이터 전달 방식이다
+
+### ⭐️ 사용 방법
+
+부모 컴포넌트에서 자식 컴포넌트를 호출시
+
+자식 컴포넌트 태그 내 v-bind나 : 키워드를통해
+
+데이터를 전달하고 자식 컴포넌트에서
+
+props객체를 통해 데이터를 전달받는 방식이다
+
+### ⭐️ 기본 형태
+
+```xml
+<!--부모 컴포넌트--><template><!--첫번째, 두번째 모두 같은 결과--><!--첫번째 방법-->
+    <자식컴포넌트이름 :props이름="전달데이터"/>
+    <!--두번째 방법-->
+    <자식컴포넌트이름 v-bind:props이름="전달데이터"/>
+</template>
+```
+
+### ⭐️ 샘플예제 (로직)
+
+쇼핑몰 상품 리스트가 출력되는
+
+예제를 만들어 보았다.
+
+App은 부모 컴포넌트,
+
+Menu와 Product는 자식 컴포넌트이고
+
+각 자식 컴포넌트는 props를 통하여
+
+해당하는 데이터를 전달 받아 출력하는 형식이다
+
+### ⭐️ App 컴포넌트 (부모컴포넌트)
+
+```xml
+<!--UI--><template><Menu :menu="menu"/><nav><ul><Product v-for="product,i in products" :key="i" v-bind:product="product"/></ul></nav></template><!--Script--><script>
+import Menufrom './components/Menu.vue';
+import Productfrom './components/Product.vue';
+
+exportdefault {
+  name : 'App',
+  data (){
+return {
+      menu : ['HOME','ABOUT' ,'PRODUCTS', 'ETC'],
+      products : [
+        {id : '0', title : 'Sample Product1', price : 10000, img : '<https://dummyimage.com/200/F6A9A9/464660>'},
+        {id : '1', title : 'Sample Product2', price : 50000, img : '<https://dummyimage.com/200/FFBF86/464660>'},
+        {id : '2', title : 'Sample Product3', price : 30000, img : '<https://dummyimage.com/200/FFF47D/464660>'},
+        {id : '3', title : 'Sample Product5', price : 70000, img : '<https://dummyimage.com/200/C2F784/464660>'},
+      ]
+    }
+  },
+  components : {
+    //ES6 부터 key, value의 변수명이 같을때 생략이 가능하다//Menu : Menu
+    Menu,Product
+  }
+}
+</script><!--CSS--><style></style>
+```
+
+### ⭐️ Menu 컴포넌트 (자식 컴포넌트 - 메뉴)
+
+```xml
+<template><nav><ul class="menu"><li class="menu--item" v-for="item,i in menu" :key="i"><a :href="'/'+item">{{item}}</a></li></ul></nav></template><script>
+exportdefault {
+  name : 'Menu',
+  props : {
+    menu : Array
+  }
+}
+</script><style>
+  .menu {
+display: flex;
+justify-content: center;
+padding: 10px;
+border-radius: 5px;
+background: steelblue;
+list-style: none;
+  }
+
+  .menu--item {
+padding: 10px;
+  }
+
+  .menu--itema {
+color: white;
+text-decoration: none;
+  }
+</style>
+```
+
+### ⭐️ Product 컴포넌트 (자식 컴포넌트-상품)
+
+```xml
+<template><li class="product"><img :src="product.img"/><div class="product--content"><h3 class="content--title">{{product.title}}</h3><div class="content--price">상품가 : {{product.price}} 원</div></div></li></template><script>
+exportdefault {
+    name : 'Product',
+    props : {
+        product : Object
+    }
+}
+</script><style>
+    .product {
+display: flex;
+flex-direction: row;
+justify-content: center;
+flex-wrap: wrap;
+align-items: center;
+list-style: none;
+margin: 10px;
+    }
+
+    .product--content {
+margin-left: 10px;
+    }
+</style>
+```
+
+### 🌈 출력 결과
+
+![https://blog.kakaocdn.net/dn/FISjE/btrb8hQOsvQ/bHGbLxInnkE945L0NXsNUk/img.png](https://blog.kakaocdn.net/dn/FISjE/btrb8hQOsvQ/bHGbLxInnkE945L0NXsNUk/img.png)
