@@ -282,6 +282,7 @@
     ```
 
 - 동등 연산자
+  
   - a == b : a와 b가 같다.
   - a ≠ b : a와 b가 같지 않다.
 
@@ -761,8 +762,6 @@ export default Library;
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7f48a522-95f6-4b80-8e23-18e884f36b83/Untitled.png)
 
-
-
 # 섹션 4. Rendering Elements
 
 ---
@@ -869,3 +868,160 @@ const elemnet = <h1>Hello, world</h1>;
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/83130204-404f-4e13-ada6-ee1583fd19b7/Untitled.png)
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d781714-76d0-4021-b989-4e66f122e844/Untitled.png)
+
+
+
+
+
+# 섹션 5. Components and Props
+
+---
+
+## Components와 Props의 정의
+
+### Component-Based
+
+- 레고 블록 조립하듯 컴포넌트들을 모아서 개발
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ad2e974-b4d0-4b06-a6c3-9b3b859b2055/Untitled.png)
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8470af83-95a9-416d-be9c-0cf196ccde15/Untitled.png)
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a4f6ff8-29b1-4133-a2a1-52fd86426f39/Untitled.png)
+
+### Props
+
+- 컴포넌트에 전달할 다양한 정보를 담고 있는 자바스크립트 객체
+
+- Property의 준말, 즉 속성
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a8583dfc-c149-49f2-9523-41550b2b02fe/Untitled.png)
+
+- 에어비앤비의 컴포넌트
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/90b44ad3-a56a-42b5-adde-e888b3bdd302/Untitled.png)
+
+- 에어비앤비의 props
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ef1c59bb-d15a-4fdf-bb56-14c1facd32d3/Untitled.png)
+
+## Props의 특징 및 사용법
+
+### Read-Only
+
+- 값을 변경할 수 없다.
+- 새로운 값을 컴포넌트에 전달하여 새로 Element를 생성
+
+### Javascirpt의 함수의 속성
+
+- 퓨어함
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5c2d4b94-cdf2-4e64-9a56-ec97944e1642/Untitled.png)
+  
+  - Impure
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7f78bbd2-03ca-46a4-8130-96998b27b5e5/Untitled.png)
+  
+  - All React components must act like pure functions with repect to their props.
+  
+  - 모든 리액트 컴포넌트는 그들의 Props에 관해서는 Pure 함수 같은 역할을 해야 한다.
+  
+  - 즉 모든 리액트 컴포넌트는 Props를 직접 바꿀 수 없고, 같은 Props에 대해서는 항상 같은 결과를 보여줄 것.
+
+### Props 사용법
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6803dfae-5d66-4445-b110-16f8cde69350/Untitled.png)
+
+- JSX를 사용한 Props
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ab259f0-2ac3-4591-8070-0c560eebb76c/Untitled.png)
+
+- JSX 미사용
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/49fa07ff-e7d5-4fae-8385-bca27337533b/Untitled.png)
+
+## Component 만들기
+
+### 컴포넌트
+
+- 종류
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c15eb15-3832-4042-828e-f9769aba8811/Untitled.png)
+  
+  - 함수 컴포넌트(Function Component)
+    
+    ```jsx
+    function Welcom(props) {
+            return <h1>안녕, {props.name}</h1>;
+    }
+    ```
+  
+  - 클래스 컴포넌트(Class Component)
+    
+    ```jsx
+    class Welcom extends React.Component {
+            render() {
+                    return <h1>안녕, {this.props.name}</h1>;
+            }
+    }
+    ```
+
+### Component의 이름
+
+- Component 이름은 항상 대문자로 시작해야 한다.
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/67356ae8-7258-4706-8702-6431648d14d6/Untitled.png)
+
+### Component 렌더링
+
+```
+![Untitled](<https://s3-us-west-2.amazonaws.com/secure.notion-static.com/16bc4908-da30-40b1-a27f-0aecb7619d38/Untitled.png>)
+```
+
+- 실제
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea8b654a-9ac9-4c9b-af13-0d4a9fad8279/Untitled.png)
+
+## Component 합성과 추출
+
+### Component 합성
+
+- Component 안에 또 다른 Component를 쓸 수 있다.
+
+- 복잡한 화면을 여러개의 Component로 나눠서 구현 가능
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6aae14c1-6b06-43ed-a165-23b5a5821e5f/Untitled.png)
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/688c1321-9029-4a42-9bed-a2f41ad38090/Untitled.png)
+
+### Component 추출
+
+- 큰 컴포넌트를 산산조각 내자.
+
+- 재사용성 증가
+
+- 개발 속도 빨라짐
+
+- 과정
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a717914-8b89-4df8-b9bd-47de46a33097/Untitled.png)
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/838b9f11-22fd-4ee6-ae87-9e4ebcaada57/Untitled.png)
+  
+  1. Avatar 추출하기
+     
+     ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46d884af-35e1-40ac-8ac7-4b2fd15b226e/Untitled.png)
+     
+     ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b91c232c-e911-4e79-a5a2-1bd557980067/Untitled.png)
+     
+     ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0efcf2d0-753b-485b-be88-b2ecce4dfc81/Untitled.png)
+1. UserInfo 추출하기
+   
+   ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7101376f-8534-4949-b336-000597ba359d/Untitled.png)
+   
+   ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a0935343-47da-4b40-90ec-642c9c92d64c/Untitled.png)
+   
+   ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f9746c7a-0194-452d-bae2-7105e024f640/Untitled.png)
+- 구조
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9801bbbe-a44a-4833-b37c-200f06e14c9a/Untitled.png)
