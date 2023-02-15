@@ -869,10 +869,6 @@ const elemnet = <h1>Hello, world</h1>;
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d781714-76d0-4021-b989-4e66f122e844/Untitled.png)
 
-
-
-
-
 # 섹션 5. Components and Props
 
 ---
@@ -1025,3 +1021,313 @@ const elemnet = <h1>Hello, world</h1>;
 - 구조
   
   ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9801bbbe-a44a-4833-b37c-200f06e14c9a/Untitled.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 섹션 7. Hooks
+
+## Hooks의 개념과 useState, useEffect
+
+### Hook
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aecf02fe-f276-450d-936d-2440ba7c161e/Untitled.png)
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d2e3bb06-9b54-4182-a75d-9d92c2357552/Untitled.png)
+
+- 갈고리
+  
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/766c6d72-d8da-42af-aa06-c1888155b532/Untitled.png)
+  
+  - 이름 앞에 use를 붙어야 함
+
+### useState
+
+- state를 사용하기 위한 Hook
+  
+  ```jsx
+  import React, { useState } from "react";
+  
+  function Counter(props) {
+          var count = 0;
+  
+          return (
+                  <div>
+                          <p>총 {count}번 클릭했습니다.</p>
+                          <button onClick={() => count++}>
+                                  클릭
+                          </button>
+                  </div>
+          );
+  } 
+  ```
+
+- useState() 사용법
+  
+  ```jsx
+  const [변수명, set함수명] = useState(초기값);
+  ```
+  
+  ```jsx
+  import React, { useState } from "react";
+  
+  function Counter(props) {
+          const [count, setCount] = useState(0); // setCount : 변수 각각에 대해 set 함수가 따로 존재
+  
+          return (
+                  <div>
+                          <p>총 {count}번 클릭했습니다.</p>
+                          <button onClick={() => setCount(count + 1)}>
+                                  클릭
+                          </button>
+                  </div>
+          );
+  } 
+  ```
+
+### useEffect()
+
+- Side effect를 수행하기 위한 Hook
+
+- 리액트에서 Side effect = 효과, 영향
+  
+  - 일반적인 Side effect = 부작용
+
+- 다른 컴포넌트에 영향을 미칠 수 있으며, 렌더링 중에는 작업이 완료될 수 없기 때문
+
+- 리액트의 함수 컴포넌트에서 Side effect를 실행할 수 있게 해주는 Hook
+
+- useEffect() 사용법
+  
+  ```jsx
+  useEffect(이펙트 함수, 의존성 배열);
+  ```
+  
+  - Effect function이 mount, unmount 시에 단 한 번씩만 실행됨
+    
+    ```jsx
+    useEffect(이펙트 함수, []);
+    ```
+  
+  - 의존성 배열을 생략하면 컴포넌트가 업데이트 될 때마다 호출됨
+    
+    ```jsx
+    import React, { useState, useEffect } from "react";
+    
+    function Counter(props) {
+            const [count, setCount] = useState(0);
+    
+            // componentDidMount, componentDidUpdate와 비슷하게 작동합니다.
+            useEffect(() => {
+                    // 브라우저 API를 사용해서 documnet의 title을 업데이트합니다.
+                    document.title = `You clicked ${count} times`;
+            });
+    
+            return (
+                    <div>
+                            <p>총 {count}번 클릭했습니다.</p>
+                            <button onClick={() => setCount(count + 1)}>
+                                    클릭
+                            </button>
+                    </div>
+            );
+    } 
+    ```
+    
+    ```jsx
+    import React, { useState, useEffect } from "react";
+    
+    function UserStatus(props) {
+            const [count, setIsOnline] = useState(null);
+    
+            function handleStatusChange(status) {
+                    setIsOnline(status.inOnline);
+            }
+    
+            useEffect(() => {
+                    ServerAPI.subscribeUserStatus(props.user.id, handleStatusChange);
+                    return () => {
+                            ServerAPI.unsubscribeUserStatus(props.user.id, handleStatusChange);
+                    };
+            });
+    
+            if (isOnline === null) {
+                    return '대기 중...';
+            }
+            return isOnline ? '온라인' : '오프라인';
+    ```
+    
+    ```jsx
+    function UserStatusWithCounter(props) {
+            const [count, setCount] = useState(0);
+            useEffect(() => {
+                    document.title = `총 ${count}번 클릭했습니다.`;
+            });
+    
+            const [isOnline, setIsOnline] = useState(null);
+            useEffect(() => {
+                    ServerAPI.subcribeUserStatus(props.user.id, handleStatusChange);
+                    return () => {
+                            ServerAPI.subcribeUserStatus(props.user.id, handleStatusChange);
+                    };
+            });
+    
+            function handleStatusChange(status) {
+                    setIsOnline(status.isOnline);
+            }
+    
+            // ...
+    ```
+    
+    ```jsx
+    useEffect(() => {
+            // 컴포넌트가 마운트 된 이후,
+            // 의존성 배열에 있는 변수들 중 하나라도 값이 변경되었을 때 실해오딤
+            // 의존성 배열에 빈 배열([])을 넣으면 마운트와 언마운트시에 단 한 번씩만 실행됨
+            // 의존성 배열 생략 시 컴포넌트 업데이트 시마다 실행됨
+            ...
+    
+            return () => {
+                    // 컴포넌트가 마운트 해제되기 전에 실행됨
+                    ...
+            }
+    }, [의존성 변수1, 의존성 변수2, ...]);
+    ```
+
+## useMemo, useCallback, useRef
+
+---
+
+### useMemo()
+
+- Memoized value를 리턴하는 Hook
+
+- Memoization : 연산량이 많이 드는 함수의 호출 결과를 저장해 두었다가, 같은 입력값으로 함수를 호출하면 새로 함수를 호출하지 않고, 이전에 저장해 두었던 호출 결과를 반환하는 것.
+
+- 사용법
+  
+  ```jsx
+  const memoizedValue = useMemo(
+          () => {
+                  // 연산량이 높은 작업을 수행하여 결과를 반환
+                  return computeExpensivaValue(의존성 변수1, 의존성 변수2);
+          },
+          [의존성 변수1, 의존성 변수2]
+  );
+  
+  // 렌더링이 일어나는 동안 실행됨
+  ```
+
+- 의존성 배열을 넣지 않을 경우, 매 렌더링마다 함수가 실행됨
+  
+  ```jsx
+  const memoizedValue = useMemo(
+          () => computeExpensiveValue(a, b)
+  );
+  ```
+
+- 의존성 배열이 빈 배열일 경우, 컴포넌트 마운트 시에만 호출됨
+  
+  ```jsx
+  const memoizedValue = useMemo(
+          () => {
+                  return computeExpensiveValue(a, b);
+          },
+          []
+  );
+  ```
+
+### useMemo, useCallback, useRef
+
+- useMemo() Hook과 유사하지만 값이 아닌 함수를 반환
+
+- 사용법
+  
+  ```jsx
+  const memoizedCallback = useCallback(
+          () => {
+                  do Something(의존성 변수1, 의존성 변수2);
+          },
+          [의존성 변수1, 의존성 변수2]
+  );
+  
+  // 의존성 배열의 값이 바뀐 경우에만 함수를 새로 정의해서 리턴
+  // 함수와 의존성 배열을 파라미터로 받음
+  // 파라미터로 받는 함수를 콜백이라고 부름
+  // 의존성 배열에 있는 변수 중 하나라도 바뀌면 메모이제이션된 콜백함수를 반환
+  // 의존성 배열에 따라 메모이즈드 된 값을 반환하는 것은 useMemo()와 동일
+  ```
+
+- 동일한 역할을 하는 두줄의 코드
+  
+  ```jsx
+  useCallback(함수, 의존성 배열);
+  useMemo(() => 함수, 의존성 배열);
+  ```
+  
+  ```jsx
+  import { useState } from "react";
+  
+  function ParentComponent(props) {
+      const |count, setCount| = useState(0);
+  
+      // 재렌더링 될 때마다 매번 함수가 새로 정의됨
+      const handleClick = (event) => {
+          // 클릭 이벤트 처리
+      };
+  
+      return (
+          <div>
+              <button
+                  onClick={() => {
+                      setCount(count + 1);
+                  }}    
+              >
+                  {count}
+              </button>
+  
+              <ChildComponent handleClick={handleClick} />
+          </div>
+      );
+  }
+  ```
+  
+  ```jsx
+  import { useState } from "react";
+  
+  function ParentComponent(props) {
+      const |count, setCount| = useState(0);
+  
+      // 재렌더링 될 때마다 매번 함수가 새로 정의됨
+      const handleClick = (event) => {
+          // 클릭 이벤트 처리
+      };
+  
+      return (
+          <div>
+              <button
+                  onClick={() => {
+                      setCount(count + 1);
+                  }}    
+              >
+                  {count}
+              </button>
+  
+              <ChildComponent handleClick={handleClick} />
+          </div>
+      );
+  }
+  ```
