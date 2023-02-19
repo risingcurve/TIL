@@ -1316,10 +1316,82 @@ const elemnet = <h1>Hello, world</h1>;
   }
   ```
 
+<<<<<<< HEAD
+=======
+## 실습. Hooks 사용해보기
+
+### useCounter Hook 만들기
+
+```jsx
+import React, { useState } from "react";
+
+function useCounter(initialValue) {
+    const [const, setCount] = useState(initialValue);
+
+    const increaseCount = () => setCount((count) => count + 1);
+    const decreaseCount = () => setCount((count) => Math.max(count - 1, 0);
+
+    return [count, increaseCount, decreaseCount];
+}
+
+export default useCounter;
+
+// useCounter Hook은 초기 카운트 값을 파라미터로 받아서, 
+// count라는 이름의 state를 생성하여 값을 제공하고,
+// count 증가 및 감소를 편리하게 할 수 있도록 함수를 제공하는 Hook이다.
+```
+
+### Accommodate 컴포넌트 만들기
+
+```jsx
+import React, { useState, useEffect } from "react";
+import useCounter from "./useCounter";
+
+const MAX_CAPACITY = 10; // 최대 수용 인원
+
+function Accomodate(props) {
+    const [isFull, setIsFull] = useState(false);
+    const [count, increaseCount, decreaseCount] = useCounter(0);
+
+    useEffect(() => {
+        console.log("================");
+        console.log("useEffect() is called.");
+        console.log(`isFull: ${isFull}`);
+    });
+
+    useEffect(() => {
+        setIsFull(count >= MAX_CAPACITY); 
+        console.log(`Current count value: ${count}`);
+    }, {count});
+
+    return (
+        <div style={{ padding: 16 }}>
+            <p>{`총 ${count}명 수용했습니다.`}</p>
+
+            <button onClick={increaseCount} disabled={isFull}>
+                입장
+            </button>
+            <button Click={decreaseCount}>
+                퇴장
+            </button>
+
+            {isFull && <p style={{ color: "red" }}>정원이 가득찼습니다.</p>}
+        </div>
+    );
+}
+```
+
+- 앞에서 만든 useCounter()를 사용하여 count를 관리한다.
+- 두 개의 useEffect훅을 사용함 → 의존성 배열 유무
+- 의존성 배열이 없는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 컴포넌트가 업데이트 될 때마다 호출
+- 의존성 배열이 있는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 카운트 값이 바뀔 때마다 호출, 용량이 가득 찼는지 아닌지를 isFull에 저장
+
+>>>>>>> 893184250b3a194f0658e7e63b8232adafbd4311
 
 
 
 
+<<<<<<< HEAD
 # 섹션 8. Handling Events
 
 ## Event의 정의 및 Event 다루기
@@ -1420,3 +1492,7 @@ const elemnet = <h1>Hello, world</h1>;
       );
   }
   ```
+=======
+
+
+>>>>>>> 893184250b3a194f0658e7e63b8232adafbd4311
