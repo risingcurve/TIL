@@ -1383,3 +1383,108 @@ function Accomodate(props) {
 - 두 개의 useEffect훅을 사용함 → 의존성 배열 유무
 - 의존성 배열이 없는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 컴포넌트가 업데이트 될 때마다 호출
 - 의존성 배열이 있는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 카운트 값이 바뀔 때마다 호출, 용량이 가득 찼는지 아닌지를 isFull에 저장
+
+
+
+
+
+# 섹션 8. Handling Events
+
+## Event의 정의 및 Event 다루기
+
+### Event
+
+- 특정 사건
+  
+  - 예시 : 사용자가 버튼을 클릭한 사건
+
+- 바인딩 사용하기
+  
+  ```jsx
+  class Toggle extends React.Component {
+      constructor(props) {
+          super(props);
+  
+          this.state = { isToggleOn: True };
+  
+          // callback에서 `this`를 사용하기 위해서는 바인딩을 필수적으로 해줘야 합니다.
+          this.handleClick = this.handleClick.bind(this);
+      }
+  
+      // 바인딩 사용
+      handleClick() {
+          this. setState(prevState => ({
+              isToggleOn: !prevState.isToggleOn
+          }));
+      }
+  
+      render() {
+          return (
+              <button onClick={this.handleClick}>
+                  {this.state.isToggleOn ? '켜짐' : '꺼짐'}
+              </button>
+          );
+      }
+  }
+  ```
+
+- 바인딩 대신 Class fields syntax 사용
+  
+  ```jsx
+  class MyButton extends React.Component {
+      handleClick = () => {
+          console.log('this is:', this);
+      }
+  
+      render() {
+          return (
+              <button onClick={this.handleClick}>
+                  클릭
+              </button>
+          )
+      }
+  }
+  ```
+
+- Arrow function 사용
+  
+  ```jsx
+  class MyButton extends React.Component {
+      handleClick() {
+          console.log('this is:', this);
+      }
+  
+      render() {
+          // 이렇게 하면 `this`가 바운드됩니다.
+          return (
+              <button onClick={() => this.handleClick()}>
+                  클릭
+              </button>
+          )
+      }
+  }
+  ```
+
+- 토글 컴포넌트를 함수 컴포넌트로 변환
+  
+  ```jsx
+  function Toggle(props) {
+      const [isToggleOn, setIsToggleOn] = useState(true);
+  
+      // 방법 1. 함수 안에 함수로 정의
+      function handleClick() {
+          setIstToggleOn((isToggleOn) => !isToggleOn);
+      }
+  
+      // 방법 2. arrow function을 사용하여 정의
+      const handleClick = () => {
+          setIsToggleOn((isToggleOn) => !isToggleOn);
+      }
+  
+      return (
+          <button onClick={handleClick}>
+              {isToggleOn ? "켜짐" : "꺼짐"}
+          </button>
+      );
+  }
+  ```
