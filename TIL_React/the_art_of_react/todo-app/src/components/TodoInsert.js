@@ -22,14 +22,36 @@ const TodoInsert = ({ onInsert }) => {
         [onInsert, value],
     )
 
+    // const onclick = useCallback(
+    //     () => {
+    //         onInsert(value);
+    //         setValue(''); // value 초기화
+    //     },
+    //     [onInsert, value],
+    // )
+
     return (
-        <form className="TodoInsert" onSubmit={onSubmit}>
+        <form className="TodoInsert" onSubmit={onSubmit}>            
             <input placeholder="할 일을 입력하세요" value={value} onChange={onChange}/>
             <button type="submit">
                 <MdAdd />
             </button>
         </form>
     )
+
+    // return (
+    //     <form className='TodoInsert'>
+    //         <input 
+    //         placeholder="할 일을 입력하세요."
+    //         value={value}
+    //         onChange={onChange}
+    //         />
+    //         <button onClick={onClick}>
+    //             <MdAdd />
+    //         </button>
+    //     </form>
+    // )
+
 }
 
 export default TodoInsert;
