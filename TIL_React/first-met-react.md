@@ -1316,8 +1316,9 @@ const elemnet = <h1>Hello, world</h1>;
   }
   ```
 
-<<<<<<< HEAD
+
 =======
+
 ## 실습. Hooks 사용해보기
 
 ### useCounter Hook 만들기
@@ -1386,19 +1387,8 @@ function Accomodate(props) {
 - 의존성 배열이 없는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 컴포넌트가 업데이트 될 때마다 호출
 - 의존성 배열이 있는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 카운트 값이 바뀔 때마다 호출, 용량이 가득 찼는지 아닌지를 isFull에 저장
 
-<<<<<<< HEAD
 
 
-
-
-=======
->>>>>>> 893184250b3a194f0658e7e63b8232adafbd4311
-
-
-
-
-<<<<<<< HEAD
->>>>>>> 33e5ae5a6eec962bfa3c6e9b16d96c719099af73
 # 섹션 8. Handling Events
 
 ## Event의 정의 및 Event 다루기
@@ -1499,10 +1489,45 @@ function Accomodate(props) {
       );
   }
   ```
-<<<<<<< HEAD
-=======
-=======
 
 
->>>>>>> 893184250b3a194f0658e7e63b8232adafbd4311
->>>>>>> 33e5ae5a6eec962bfa3c6e9b16d96c719099af73
+
+(실습)
+
+```jsx
+import React from "react"
+
+class ConfirmButton extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isConfirmed: false,
+        }
+    }
+
+    this.handleConfirm = this.hanleConfirm.bind(this)
+}
+
+
+    handleConfirm() {
+        this.setState(prevState) => ({
+            isConfirmed: !prevState.isConfirmed,        
+        }))
+    }
+
+    render() {
+        return (
+            <button
+                onClick=(this.handleConfirm)
+                disabled=(this.state.isConfirmed)
+            >
+                {this.state.isConfirmed ? "확인됨" : "확인하기"}
+            </button>            
+        )
+    }
+}
+
+export default ConfirmButton;
+    
+```
