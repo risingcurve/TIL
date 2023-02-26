@@ -1316,7 +1316,6 @@ const elemnet = <h1>Hello, world</h1>;
   }
   ```
 
-
 =======
 
 ## 실습. Hooks 사용해보기
@@ -1386,8 +1385,6 @@ function Accomodate(props) {
 - 두 개의 useEffect훅을 사용함 → 의존성 배열 유무
 - 의존성 배열이 없는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 컴포넌트가 업데이트 될 때마다 호출
 - 의존성 배열이 있는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 카운트 값이 바뀔 때마다 호출, 용량이 가득 찼는지 아닌지를 isFull에 저장
-
-
 
 # 섹션 8. Handling Events
 
@@ -1490,8 +1487,6 @@ function Accomodate(props) {
   }
   ```
 
-
-
 (실습)
 
 ```jsx
@@ -1529,5 +1524,295 @@ class ConfirmButton extends React.Component {
 }
 
 export default ConfirmButton;
-    
 ```
+
+
+
+
+
+# # 섹션 9. Conditional Rendering
+
+## Conditional Rendering
+
+### Condition
+
+- 조건, 상태를 의미
+
+### Conditional Rendering
+
+- 조건에 따른 렌더링
+- 조건부 렌더링
+- 어떠한 조건(조건문의 True, False)에 따라서 렌더링이 달라지는 것
+
+```jsx
+function Greeting(props) {
+    const isLogginedIn = props.isLoggedIn
+
+    if (isLoggedIn) {
+        return <UserGreeting />
+    }
+    return <GuestGreeting />
+}
+```
+
+### Javascript의 Truthy와 Falsy
+
+- Truthy : Javascript에서 True는 아니지만 True로 여겨지는 값
+- Falsy : Javascript에서 False는 아니지만 False로 여겨지는 값
+
+```jsx
+// truthy
+true
+{} (empty object)
+[] (empty array)
+42 (number, not zero)
+"0", "false" (string, not empty)
+
+// falsy
+0, -0 (zero, minus zero)
+0n (BigInt zero)
+'', "", `` (empty string)
+null
+undefined
+NaN(not a number)
+```
+
+### Element Variables
+
+- 엘리먼트를 변수처럼 다루는 방법
+  
+  ```jsx
+  function LoginButton(props) {
+      return (
+          <button onClick={props.onClick}>
+              로그인
+          </button>
+      )
+  }
+  
+  function LogoutButton(props) {
+      return (
+          <button onClick={props.onClick}>
+              로그아웃
+          </button>
+      )
+  }
+  ```
+  
+  ```jsx
+  function LogginControl(props) {
+      const [isLoggedIn, setIsLoggedIn] = useState(false_
+  
+      const handleLoginClick = () => {
+          setIsLoggedIn(true)
+      }
+  
+      const handleLogoutClick = () => {
+          setIsLoggedIn(false)
+      }
+  
+      let button
+      if (isLoggedIn) {
+          button = <LogoutButton onClick={handleLogoutClick} />
+      } else {
+          button = <LoginButton onClick={handleLoginClick} />
+      }
+  
+      return (
+          <div>
+              <Greeting isLoggedIn={isLoggedIn}/>
+              {button} // element를 변수처럼 저장
+          </div>
+      )
+  }
+  ```
+
+### Inline Conditions
+
+- in + line : 해당 코드 안에 직접 기입
+- 조건문을 코드 안에 집어넣는 것.
+
+### Inline if
+
+- if문을 필요한 곳에 직접 집어넣어 사용하는 방법
+
+- if문의 경우 && 연산자를 사용
+  
+  - 단축 평가 적용
+    - true && expression → expression
+    - false && expression → false
+  
+  ```jsx
+  function Mailbox(props) {
+      const unreadMessages = props.unreadMessages;
+  
+      return (
+          <div>
+              <h1>안녕하세요!</h1>
+              {unreadMessages.length > 0 &&
+                  <h2>
+                      현재 {unreadMessages.length}개의 읽지 않은 메시지가 있습니다.
+                  </h2>
+              }
+          </div>
+      )
+  }
+  ```
+  
+  - && 연산자를 사용할 때 조건문에 false expression을 사용하면 뒤에 나오는 expression은 평가되지 않지만, false expression의 결과 값은 그대로 나옴.
+  
+  ```jsx
+  function Counter(props) {
+      const count = 0;
+  
+      return (
+          <div>
+              {count && <h1>현재 카운트 : {count}</h1>}
+          </div>
+      )
+  }
+  ```
+
+- if else 문의 경우 ? 연산자를 사용
+  
+  - 삼항 연산자
+  - condition ? true : false
+  
+  ```jsx
+  function UserStatus(props) {
+      return (
+          <div>
+              이 사용자는 현재 <b>{props.isLoggedIn ? '로그인' : '로그인하지 않은'}</b> 상태입니다.
+          </div>
+      )
+  }
+  ```
+  
+  ```jsx
+  function LogginControl(props) {
+      const [isLoggedIn, setIsLoggedIn] = useState(false)
+  
+      const handleLoginClick = () => {
+          setIsLoggedIn(true)
+      }
+  
+      const handleLogoutClick = () => {
+          setIsLoggedIn(false)
+      }
+  
+      return (
+          <div>
+              <Greeting isLoggedIn={isLoggedIn} />
+              {isLoggedIn
+                  ? <LogoutButton onClick={handleLogoutClick} />
+                  : <LoginButton onClick={handleLoginClick} />
+          </div>
+      )
+  }
+  ```
+
+### Component 렌더링 막기
+
+- null 리턴
+  
+  ```jsx
+  function WarningBanner(props) {
+      if (!props.warning) {
+          return null;
+      }
+  
+      return (
+          <div>경고!</div>
+      )
+  }
+  ```
+  
+  ```jsx
+  function MainPage(props) {
+      const [showWarning, setShowWarning] = useState(false)
+  
+      const handleToggleClick = () => {
+          setShowWarning(prevShowWarning => !prevShowWarning)
+      }
+  
+      return (
+          <div>
+              <WarningBanner warning={showWarning} />
+              <button onClick={handleToggleClick}>
+                  {showWarning ? '감추기' : '보이기'}
+              </button>
+          </div>
+      )
+  }
+  ```
+
+- 컴포넌트의 생명주기에는 영향을 미치지 않음.9강. Conditional Rendering
+
+## Conditional Rendering
+
+### Condition
+
+- 조건, 상태를 의미
+
+
+
+### Conditional Rendering
+
+- 조건에 따른 렌더링
+
+- 조건부 렌더링
+
+- 어떠한 조건(조건문의 True, False)에 따라서 렌더링이 달라지는 것
+
+```jsx
+function Greeting(props) {
+    const isLogginedIn = props.isLoggedIn
+
+    if (isLoggedIn) {
+        return <UserGreeting />
+    }
+    return <GuestGreeting />
+}
+```
+
+
+
+### Javascript의 Truthy와 Falsy
+
+- Truthy : Javascript에서 True는 아니지만 True로 여겨지는 값
+
+- Falsy : Javascript에서 False는 아니지만 False로 여겨지는 값
+
+```javascript
+// truthy
+true
+{} (empty object)
+[] (empty array)
+42 (number, not zero)
+"0", "false" (string, not empty)
+
+
+// falsy
+0, -0 (zero, minus zero)
+0n (BigInt zero)
+'', "", `` (empty string)
+null
+undefined
+NaN(not a number)
+```
+
+
+
+### Element Variables
+
+- 엘리먼트를 변수처럼 다루는 방법
+  
+  
+  
+  
+
+
+
+### Inline Conditions
+
+- 조건문을 코드 안에 집어넣는 것.
