@@ -1526,11 +1526,13 @@ class ConfirmButton extends React.Component {
 export default ConfirmButton;
 ```
 
+# 
 
+# 
 
+# 섹션 9. Conditional Rendering
 
-
-# # 섹션 9. Conditional Rendering
+---
 
 ## Conditional Rendering
 
@@ -1746,73 +1748,101 @@ NaN(not a number)
   }
   ```
 
-- 컴포넌트의 생명주기에는 영향을 미치지 않음.9강. Conditional Rendering
-
-## Conditional Rendering
-
-### Condition
-
-- 조건, 상태를 의미
+- 컴포넌트의 생명주기에는 영향을 미치지 않음.
 
 
 
-### Conditional Rendering
 
-- 조건에 따른 렌더링
 
-- 조건부 렌더링
 
-- 어떠한 조건(조건문의 True, False)에 따라서 렌더링이 달라지는 것
+## (실습) 로그인 여부를 나타내는 툴바 만들기
 
 ```jsx
-function Greeting(props) {
-    const isLogginedIn = props.isLoggedIn
+import React from "react";
 
-    if (isLoggedIn) {
-        return <UserGreeting />
-    }
-    return <GuestGreeting />
+const styles = {
+    wrapper: {
+        padding: 16,
+        display: "flex",
+        flexDirection: "row",
+        borderBottom: "1px solid grey"
+    },
+
+    greeting: {
+        marginRight: 8,
+    },
+}
+
+function Toolbar(props) {
+    const { isLoggedIn, onClickLogin, onClickLogout } = props
+
+    return (
+        <div style={styles.wrapper}>
+            {isLoggedIn && <span style={styles.greeting}>환영합니다!</span>}
+
+            {isLoggedIn ? (
+                <button onClick={onClickLogout}>로그아웃</button>
+            ) : (
+                <button onClick={onClickLogin}>로그인</button>
+            )}
+        </div>
+    )
 }
 ```
 
+```jsx
+import React, { useState } from "react";
+import Toolbar from "./Toolbar"
 
+function LandingPage(props) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-### Javascript의 Truthy와 Falsy
+    const onClickLogin = () => {
+        setIsLoggedIn(true)
+    }
 
-- Truthy : Javascript에서 True는 아니지만 True로 여겨지는 값
+    const onClickLogout = () => {
+        setIsLoggedIn(false)
+    }
 
-- Falsy : Javascript에서 False는 아니지만 False로 여겨지는 값
+    return (
+        <div>
+            <Toolbar
+                isLoggedIn={isLoggedIn}
+                onClickLogin={onClickLogin}
+                onClickLogout={onClickLogout}
+            />
+            <div style={{ padding: 16 }}>소플과 함께하는 리액트 공부!</div>
+        </div>
+    )
+}
 
-```javascript
-// truthy
-true
-{} (empty object)
-[] (empty array)
-42 (number, not zero)
-"0", "false" (string, not empty)
-
-
-// falsy
-0, -0 (zero, minus zero)
-0n (BigInt zero)
-'', "", `` (empty string)
-null
-undefined
-NaN(not a number)
+export default LandingPage
 ```
 
-
-
-### Element Variables
-
-- 엘리먼트를 변수처럼 다루는 방법
-  
-  
-  
-  
+# 
 
 
 
-### Inline Conditions
+# 섹션 10. List and Keys
 
-- 조건문을 코드 안에 집어넣는 것.
+---
+
+## List와 Key
+
+### List
+
+- 목록
+- Array (배열) : 자바스크립트의 변수나 객체들을 하나의 변수로 묶어 놓은 것.
+
+## 
+
+## 여러개의 Component 렌더링 하기
+
+## 
+
+## Liset의 Key
+
+## 
+
+## (실습) 출석부 출력하기
