@@ -216,11 +216,7 @@ __비트 연산자 NOT
 [문제]_87 계단 오르기  
 [문제]_88 집 도둑
 
-
-
 ---
-
-
 
 파이썬에서 빅오
 
@@ -244,7 +240,9 @@ __비트 연산자 NOT
 
 
 
-파이썬에서 자료형
+
+
+# 파이썬에서 자료형
 
 파이썬은 동적 타이핑(dynamic typing) 언어로, 변수의 타입이 실행 시간에 결정됩니다. 파이썬에서 제공하는 자료형은 다음과 같습니다.
 
@@ -266,7 +264,9 @@ __비트 연산자 NOT
 
 
 
-파이썬 자료구조
+
+
+# 파이썬 자료구조
 
 파이썬에서는 다양한 자료구조를 제공합니다. 각 자료구조의 특징과 사용 방법을 살펴보겠습니다.
 
@@ -283,10 +283,7 @@ print(a[0])  # 1
 print(a[2:4])  # [3, 4]
 a[1] = 10  # 리스트 값 수정
 print(a)  # [1, 10, 3, 4, 5]
-
 ```
-
-
 
 2. 튜플(Tuple)
 
@@ -299,12 +296,7 @@ a = (1, 2, 3)  # 튜플 생성
 print(a)  # (1, 2, 3)
 print(a[0])  # 1
 a[1] = 10  # TypeError: 'tuple' object does not support item assignment
-
 ```
-
-
-
-
 
 3. 집합(Set)
 
@@ -317,10 +309,7 @@ a = {1, 2, 3}  # 집합 생성
 print(a)  # {1, 2, 3}
 b = {3, 4, 5}
 print(a.union(b))  # {1, 2, 3, 4, 5}
-
 ```
-
-
 
 4. 딕셔너리(Dictionary)
 
@@ -334,12 +323,7 @@ print(a)  # {'apple': 1000, 'banana': 2000, 'orange': 1500}
 print(a['apple'])  # 1000
 a['banana'] = 2500  # 딕셔너리 값 수정
 print(a)  # {'apple': 1000, 'banana': 2500, 'orange': 1500}
-
 ```
-
-
-
-
 
 6. 큐(Queue)
 
@@ -355,10 +339,7 @@ a.append(4)  # enqueue
 print(a)  # deque([1, 2, 3, 4])
 a.popleft()  # dequeue
 print(a)  # deque([2, 3, 4])
-
 ```
-
-
 
 7. 힙(Heap)
 
@@ -374,10 +355,7 @@ heapq.heapify(a)  # 힙 생성
 print(a)  # [1, 1, 2, 6, 5, 9, 4, 3, 5]
 print(heapq.heappop(a))  # 1 (최솟값)
 print(a)  # [1, 3, 2, 6, 5, 9, 4, 5]
-
 ```
-
-
 
 8. 그래프(Graph)
 
@@ -395,16 +373,9 @@ graph = {
 }
 
 print(graph['A'])  # ['B', 'C']
-
 ```
 
-
-
 위와 같이 파이썬에서는 다양한 자료구조를 제공하며, 이를 적절하게 활용하여 프로그램을 작성할 수 있습니다.
-
-
-
-
 
 9. 해시테이블(Hash Table)
 
@@ -420,10 +391,7 @@ hash_table['three'] = 3
 
 print(hash_table)  # {'one': 1, 'two': 2, 'three': 3}
 print(hash_table['one'])  # 1
-
 ```
-
-
 
 10. 트라이(Trie)
 
@@ -446,12 +414,7 @@ insert('hello')
 insert('world')
 
 print(trie)  # {'h': {'e': {'l': {'l': {'o': {'*': True}}}}}, 'w': {'o': {'r': {'l': {'d': {'*': True}}}}}}
-
 ```
-
-
-
-
 
 좀 더 알려줘
 
@@ -471,10 +434,7 @@ print(stack)  # [1, 2, 3]
 
 print(stack.pop())  # 3 (pop)
 print(stack)  # [1, 2]
-
 ```
-
-
 
 12. 세트(Set)
 
@@ -489,10 +449,7 @@ set2 = set([2, 3, 4])
 print(set1 & set2)  # {2, 3} (교집합)
 print(set1 | set2)  # {1, 2, 3, 4} (합집합)
 print(set1 - set2)  # {1} (차집합)
-
 ```
-
-
 
 13. 덱(Deque)
 
@@ -513,10 +470,7 @@ print(d)  # deque([0, 1, 2, 3, 4, 5])
 
 d.pop()  # 오른쪽에서 꺼냄
 print(d)  # deque([0, 1, 2, 3, 4])
-
 ```
-
-
 
 14. OrderedDict
 
@@ -534,14 +488,9 @@ d['apple'] = 4
 d['pear'] = 1
 
 print(d)  # OrderedDict([('banana', 3), ('apple', 4), ('pear', 1)])
-
 ```
 
-
-
 파이썬에서 제공하는 다양한 자료구조를 적절하게 사용하여, 프로그램의 효율성을 높일 수 있습니다.
-
-
 
 좀 더 알려줘
 
@@ -562,10 +511,7 @@ print(heap)  # [1, 3, 2]
 
 print(heapq.heappop(heap))  # 1
 print(heap)  # [2, 3]
-
 ```
-
-
 
 16. 디폴트 딕셔너리(Default Dictionary)
 
@@ -580,10 +526,7 @@ d = defaultdict(int)
 d['apple'] += 1
 d['banana'] += 2
 print(d)  # defaultdict(<class 'int'>, {'apple': 1, 'banana': 2})
-
 ```
-
-
 
 17. 카운터(Counter)
 
@@ -596,10 +539,7 @@ from collections import Counter
 
 c = Counter('hello, world')
 print(c)  # Counter({'l': 3, 'o': 2, ' ': 2, 'e': 1, 'h': 1, ',': 1, 'w': 1, 'r': 1, 'd': 1})
-
 ```
-
-
 
 18. 네임드 튜플(Named Tuple)
 
@@ -610,5 +550,3 @@ print(c)  # Counter({'l': 3, 'o': 2, ' ': 2, 'e': 1, 'h': 1, ',': 1, 'w': 1, 'r'
 ```python
 
 ```
-
-
