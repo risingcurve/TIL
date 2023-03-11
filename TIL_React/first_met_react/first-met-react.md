@@ -1750,11 +1750,6 @@ NaN(not a number)
 
 - 컴포넌트의 생명주기에는 영향을 미치지 않음.
 
-
-
-
-
-
 ## (실습) 로그인 여부를 나타내는 툴바 만들기
 
 ```jsx
@@ -1822,8 +1817,6 @@ export default LandingPage
 
 # 
 
-
-
 # 섹션 10. List and Keys
 
 ---
@@ -1835,14 +1828,117 @@ export default LandingPage
 - 목록
 - Array (배열) : 자바스크립트의 변수나 객체들을 하나의 변수로 묶어 놓은 것.
 
-## 
+### Key
+
+- 각 객체나 아이템을 구분할 수 있는 고유한 값
+
+- 아이템들을 구분하기 위한 고유한 문자열
+  
+  
 
 ## 여러개의 Component 렌더링 하기
 
-## 
+### map()
+
+- 짝 지어주는 것
+  
+  ```jsx
+  const doubled = numbers.map((number) => number * 2);
+  ```
+  
+  ```jsx
+  const numbers = [1, 2, 3, 4, 5]
+  const listItems = numbers.map((number) =>
+      <li>{number}<li>
+  )
+  
+  ReactDOM.render(
+      <ul>{listItems}</ul>,
+      document.getElementById('root')
+  )
+  ```
+  
+  ```jsx
+  ReactDOM.render(
+      <ul>
+          <li>{1}</li>
+          <li>{2}</li>
+          <li>{3}</li>
+          <li>{4}</li>
+          <li>{5}</li>
+      </ul>
+      document.getElementById('root')
+  )
+  ```
+
+
+
+### 기본적인 List Component
+
+```jsx
+function NumberList(props) {
+    const { numbers } = props
+
+    const listItems = numbers.map((number) =>
+        <li>{number}</li>
+    )
+
+    return (
+        <ul>{listItems}</ul>
+    )
+}
+
+const numbers = [1, 2, 3, 4, 5]
+ReactDOM.render(
+    <NumberList numbers={numbers} />,
+    document.getElementById('root')
+)
+
+// 각 아이템에 키가 없기 때문에 콘솔에 경고 문구가 출력됨.
+```
+
+
 
 ## Liset의 Key
 
-## 
+- Key의 값은 같은 List에 있는 Elemnets 사이에서만 고유한 값이면 된다.
+
+- 두 대학교 사이에서는 학번이 같아도 상관 없듯이 두 list 사이에서는 key가 같아도 상관 없다.
+
+- map() 함수 안에 있는 Elements는 꼭 key가 필요하다.
+
+### key로 값을 사용하는 경우
+
+  ```jsx
+  const numbers = [1, 2, 3, 4, 5]
+  const listItems = numbers.map((number) =>
+      <li key={number.toString()}>
+          {number}
+      </li>
+  )
+  ```
+
+### key로 id를 사용하는 경우
+
+  ```jsx
+  const todoItems = todos.map((todo) =>
+	  <li key={todo.id}>
+		{todo.text}
+	  </li>
+  )
+  ```
+
+### key로 index를 사용하는 경우
+
+  ```jsx
+  const todoItems = todos.map((todo, index) =>
+	  // 아이템들의 고유한 id가 없을 경우에만 사용해야 함
+	  <li key={todo.id}>
+		{todo.text}
+	  </li>
+  )
+  ```
+
+  
 
 ## (실습) 출석부 출력하기
