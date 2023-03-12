@@ -1386,6 +1386,8 @@ function Accomodate(props) {
 - 의존성 배열이 없는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 컴포넌트가 업데이트 될 때마다 호출
 - 의존성 배열이 있는 형태는 컴포넌트가 마운트된 직후 호출, 이 후 카운트 값이 바뀔 때마다 호출, 용량이 가득 찼는지 아닌지를 isFull에 저장
 
+# 
+
 # 섹션 8. Handling Events
 
 ## Event의 정의 및 Event 다루기
@@ -1833,8 +1835,6 @@ export default LandingPage
 - 각 객체나 아이템을 구분할 수 있는 고유한 값
 
 - 아이템들을 구분하기 위한 고유한 문자열
-  
-  
 
 ## 여러개의 Component 렌더링 하기
 
@@ -1871,8 +1871,6 @@ export default LandingPage
   )
   ```
 
-
-
 ### 기본적인 List Component
 
 ```jsx
@@ -1897,8 +1895,6 @@ ReactDOM.render(
 // 각 아이템에 키가 없기 때문에 콘솔에 경고 문구가 출력됨.
 ```
 
-
-
 ## Liset의 Key
 
 - Key의 값은 같은 List에 있는 Elemnets 사이에서만 고유한 값이면 된다.
@@ -1909,36 +1905,247 @@ ReactDOM.render(
 
 ### key로 값을 사용하는 경우
 
-  ```jsx
-  const numbers = [1, 2, 3, 4, 5]
-  const listItems = numbers.map((number) =>
-      <li key={number.toString()}>
-          {number}
-      </li>
-  )
-  ```
+```jsx
+const numbers = [1, 2, 3, 4, 5]
+const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+        {number}
+    </li>
+)
+```
 
 ### key로 id를 사용하는 경우
 
-  ```jsx
-  const todoItems = todos.map((todo) =>
-	  <li key={todo.id}>
-		{todo.text}
-	  </li>
-  )
-  ```
+```jsx
+const todoItems = todos.map((todo) =>
+    <li key={todo.id}>
+      {todo.text}
+    </li>
+)
+```
 
 ### key로 index를 사용하는 경우
 
-  ```jsx
-  const todoItems = todos.map((todo, index) =>
-	  // 아이템들의 고유한 id가 없을 경우에만 사용해야 함
-	  <li key={todo.id}>
-		{todo.text}
-	  </li>
-  )
-  ```
-
-  
+```jsx
+const todoItems = todos.map((todo, index) =>
+    // 아이템들의 고유한 id가 없을 경우에만 사용해야 함
+    <li key={todo.id}>
+      {todo.text}
+    </li>
+)
+```
 
 ## (실습) 출석부 출력하기
+
+```jsx
+// Attendance.jsx
+
+import React from "react"
+
+const students = [
+    {
+        id: 1,
+        name: "WJ",
+    },
+    {
+        id: 2,
+        name: "Steve",
+    },
+    {
+        id: 3,
+        name: "Bill",
+    },
+    {
+        id: 4,
+        name: "Jeff",
+    },
+]
+
+function AttendanceBook(props) {
+    return (
+        <ul>
+            {students.map((student) => {
+                return <li key={`student-id-${student.id}`}>{student.name}</li>
+                // key를 포맷팅 된 문자열로 변경
+            })}
+            
+            {students.map((student, index) => {
+                return <li key={index}>{student.name}</li>
+                // key를 index로 변경
+            })}
+
+        </ul>
+    )
+}
+
+export default AttendanceBook
+```
+
+
+
+
+
+# 섹션 11. Forms
+
+---
+
+## Forms Controlled Component
+
+### Form
+
+- 사용자로부터 입력을 받기 위해 사용하는 것
+
+- 리액트와 html의 Form은 차이가 존재함.
+  
+  - 리액트는 컴포넌트 내부에서 state를 통해 관리
+  
+  - html은 엘리먼트 내부에 각각의 state 코드가 존재
+  
+  ```html
+  <form>
+      <label>
+          이름: 
+          <input type="text" name="name" />
+      </label>
+      <button type="submit">제출</button>
+  </form>
+  ```
+  
+  
+
+### Controlled Components
+
+- 사용자가 입력한 값에 접근하고 제어할 수 있도록 해주는 컴포넌트
+
+- 즉 값이 리액트의 통제를 받는 Input Form Element
+  
+  ![](C:\Users\gksdn\AppData\Roaming\marktext\images\2023-03-12-00-31-31-image.png)
+
+
+
+- 위의 html form 응용
+
+```jsx
+function NameForm(props) {
+    const [value, setValue] = useState('')
+    
+    const handleChange = (event) => {
+        setValue(event.target.value)
+    }
+
+    const handleSubmit = (event) => {
+        alert('입력한 이름: ' + value)
+        event.preventDefault()
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                이름:
+                <input type="text" value={value} onChange={handleChange} />
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    )
+}
+```
+
+- 사용자의 입력을 직접적으로 제어할 수 있음.
+
+
+
+- 모든 입력값을 대문자로 변경
+  
+  ```jsx
+  const handleChange= (event) => {
+      setValue(event.target.value.toUpperCase())
+  }
+  ```
+  
+  
+
+## 다양한 Forms
+
+### Text area 태그
+
+- 여러 줄에 걸쳐 긴 텍스트를 입력받기 위한 HTML 태그
+  
+  ```html
+  <textarea>
+      안녕하세요, 여기에 이렇게 텍스트가 들어가게 됩니다.
+  </textarea>
+  ```
+  
+  ```jsx
+  function RequestForm(props) {
+      const [value, setValue] = useState('요청사항을 입력하세요.')
+      
+      const handleChange = (event) => {
+          setValue(event.target.value)
+      }
+  
+      const handleSubmit = (event) => {
+          alert('입력한 요청사항: ' + value)
+          event.preventDefault()
+      }
+  
+      return (
+          <form onSubmit=handleSubmit}>
+              <label>
+                  요청사항:
+                  <textarea value={value} onChange={handleChange} />
+              </label>
+              <button type="submit">제출</button>
+          </form>
+      )
+  }
+  ```
+
+
+
+### Select 태그
+
+- Drop-down 목록을 보여주기 위한 HTML 태그
+  
+  ```html
+  <select>
+      <option value="apple">사과</option>
+      <option value="banana">바나나</option>
+      <option selected value="grape">포도</option>
+      <option value="watermelon">수박</option>
+  </select>
+  ```
+  
+  ```jsx
+  function FruitSelect(props) {
+      const [value, setValue] = useState('grape')
+  
+      const handleChange = (event) => {
+          setValue(event.target.value)
+      }
+  
+      const handleSubmit = (event) => {
+          alert('선택한 과일: ' + value)
+          event.preventDefault()
+      }
+  
+      return (
+          <form onSubmit={handleSubmit}>
+              <label>
+                  과일을 선택하세요: 
+                  <select value={value} onChang{handleChange}>
+                      <option value="apple">사과</option>
+                      <option value="banana">바나나</option>
+                      <option selected value="grape">포도</option>
+                      <option value="watermelon">수박</option>
+                  </select>
+              </label>
+              <button type="submit">제출</button>
+          </form>
+      )
+  }
+  ```
+  
+  
+
+## (실습) 사용자 정보 입력 받기
