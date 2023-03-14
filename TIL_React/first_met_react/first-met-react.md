@@ -1750,11 +1750,6 @@ NaN(not a number)
 
 - 컴포넌트의 생명주기에는 영향을 미치지 않음.
 
-
-
-
-
-
 ## (실습) 로그인 여부를 나타내는 툴바 만들기
 
 ```jsx
@@ -1821,8 +1816,6 @@ export default LandingPage
 ```
 
 # 
-
-
 
 # 섹션 10. List and Keys
 
