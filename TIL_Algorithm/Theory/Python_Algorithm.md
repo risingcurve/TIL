@@ -961,10 +961,53 @@ graph = {
 
 위 코드에서는 distances라는 딕셔너리를 사용하여 시작 노드로부터의 거리를 저장합니다. 처음에는 시작 노드를 제외한 모든 노드들의 거리를 무한대(float('inf'))로 초기화합니다. queue라는 우선순위 큐에 시작 노드와 거리 0을 삽입합니다. 이후에는 다음과 같은 과정을 반복합니다.
 
-
 queue에서 거리가 가장 짧은 노드를 선택합니다.
 이전에 이미 선택된 노드라면 무시합니다.
 선택된 노드와 연결된 인접 노드들을 탐색하면서 거리를 갱신합니다. 이 때, 이전까지의 최단 거리보다 더 짧은 경로를 찾았다면 distances에 갱신된 거리를 저장하고, queue에 새로운 노드와 거리를 삽입합니다.
 
-
 이 과정을 반복하면서, 모든 노드들의 최단 경로를 찾아내고, distances 딕셔너리에 저장된 값을 반환합니다.
+
+
+
+## 이진트리
+
+---
+
+이진 트리(Binary Tree)는 각 노드가 최대 두 개의 자식 노드를 갖는 트리 자료구조입니다. 이진 트리는 컴퓨터 과학 분야에서 널리 사용되며, 예를 들어 검색 트리, 힙(Heap), 트라이(Trie) 등을 구현하는 데 사용됩니다.
+
+이진 트리를 파이썬으로 구현하는 방법은 여러 가지가 있지만, 가장 기본적인 방법은 노드 클래스와 트리 클래스를 따로 정의하는 것입니다. 각 노드는 자신의 값(value)과 왼쪽 자식 노드(left)와 오른쪽 자식 노드(right)를 갖습니다. 트리 클래스는 루트 노드(root)를 갖습니다.
+
+아래는 이진 트리를 파이썬으로 구현하는 예시 코드입니다.
+
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self, root_value):
+        self.root = Node(root_value)
+
+    def insert_left(self, parent_node, new_node_value):
+        if parent_node.left is None:
+            parent_node.left = Node(new_node_value)
+        else:
+            new_node = Node(new_node_value)
+            new_node.left = parent_node.left
+            parent_node.left = new_node
+
+    def insert_right(self, parent_node, new_node_value):
+        if parent_node.right is None:
+            parent_node.right = Node(new_node_value)
+        else:
+            new_node = Node(new_node_value)
+            new_node.right = parent_node.right
+            parent_node.right = new_node
+
+```
+
+위 코드에서 Node 클래스는 이진 트리의 노드를 나타내며, BinaryTree 클래스는 이진 트리를 나타냅니다. BinaryTree 클래스는 루트 노드를 초기화하는 생성자(**init**)와 노드를 삽입하는 insert_left와 insert_right 메서드를 포함합니다.
+
+insert_left와 insert_right 메서드는 각각 부모 노드(parent_node)와 새로운 노드의 값(new_node_value)을 인자로 받습니다. 만약 부모 노드의 왼쪽 또는 오른쪽 자식 노드가 비어있다면, 새로운 노드를 삽입합니다. 그렇지 않다면, 새로운 노드를 부모 노드의 왼쪽 또는 오른쪽 자식 노드로 삽입합니다.
