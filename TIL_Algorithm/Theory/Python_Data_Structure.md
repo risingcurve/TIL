@@ -495,9 +495,7 @@ print(d)  # OrderedDict([('banana', 3), ('apple', 4), ('pear', 1)])
 
 파이썬에서 제공하는 다양한 자료구조를 적절하게 사용하여, 프로그램의 효율성을 높일 수 있습니다.
 
-## 힙(Heap)
-
-16. 디폴트 딕셔너리(Default Dictionary)
+## 디폴트 딕셔너리(Default Dictionary)
 
 디폴트 딕셔너리는 존재하지 않는 키에 대해 값을 지정해 놓을 수 있는 딕셔너리입니다. 존재하지 않는 키에 접근할 때마다 디폴트 값을 반환합니다. 파이썬에서는 collections 모듈의 defaultdict 클래스를 사용하여 구현할 수 있습니다.
 

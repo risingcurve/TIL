@@ -144,8 +144,11 @@ bfs(1, adj_list)  # 1번 노드에서 BFS 탐색 시작
 
 DP(Dynamic Programming)는 이전에 계산한 값을 저장해 놓고 재활용하여 중복 계산을 줄이는 알고리즘 기법입니다. 파이썬에서는 DP를 구현하는 방법은 여러가지가 있습니다. 여기서는 Memoization 방식과 Bottom-up 방식을 예제 코드로 설명하겠습니다.
 
+<<<<<<< HEAD
 ### 
 
+=======
+>>>>>>> 59713d2f5e9f0e5959f2268a96ac2de7aa43c0d3
 ### Memoization 방식
 
 Memoization은 이전에 계산한 값을 저장하고 재활용하는 방식입니다. 이전에 계산한 값이 필요할 때마다 값을 조회하여 사용합니다. Memoization 방식은 보통 재귀 함수와 함께 사용됩니다.
@@ -832,3 +835,232 @@ print(min_subarray)  # 출력: [2, 2, 1, 1]
 ```
 
 위 코드에서 lst는 입력 리스트이고, k는 슬라이딩 윈도우의 크기입니다. for문에서 리스트 lst에서 크기가 k인 슬라이딩 윈도우를 이동시키면서 최소값을 찾아 min_subarray 리스트에 저장합니다. 이렇게 슬라이딩 윈도우를 이용하여 최소값을 찾는 것은 리스트의 길이에 대한 선형 시간복잡도를 가집니다.
+
+## 우선순위 큐
+
+---
+
+파이썬에서 우선순위 큐(Priority Queue)는 `heapq` 모듈을 이용하여 구현할 수 있습니다. `heapq` 모듈은 이진 힙(binary heap) 자료구조를 제공하며, 우선순위 큐는 이진 힙을 이용하여 구현됩니다.
+
+이진 힙은 완전 이진 트리(complete binary tree)의 일종으로, 최솟값 혹은 최댓값을 빠르게 찾기 위해 구현된 자료구조입니다. 파이썬의 `heapq` 모듈은 기본적으로 최소힙(min heap)을 제공합니다. 따라서 최소값을 빠르게 찾을 수 있습니다. 최대값을 찾으려면 입력된 값에 대한 음수를 취하여 최소값을 찾은 후, 다시 음수를 취하는 방법으로 최대값을 구할 수 있습니다.
+
+다음은 `heapq` 모듈을 이용하여 우선순위 큐를 구현한 예제입니다.
+
+```python
+import heapq
+
+pq = []  # 우선순위 큐 생성
+heapq.heappush(pq, 3)  # 3 추가
+heapq.heappush(pq, 1)  # 1 추가
+heapq.heappush(pq, 4)  # 4 추가
+heapq.heappush(pq, 1)  # 1 추가
+while pq:
+    print(heapq.heappop(pq))  # 출력: 1 1 3 4
+```
+
+위 코드에서 `heapq.heappush(pq, x)`는 우선순위 큐 `pq`에 원소 `x`를 추가합니다. `heapq.heappop(pq)`는 우선순위 큐 `pq`에서 최소값을 제거하고 반환합니다. 따라서 `while` 루프에서는 최소값부터 차례대로 출력됩니다. 이 예제는 출력 결과가 `[1, 1, 3, 4]`로 예상한 대로 최소값부터 차례대로 출력됩니다.
+
+우선순위 큐에서는 일반적으로 우선순위가 높은 원소를 먼저 처리하는 것이 중요합니다. 따라서 `heapq.heappush(pq, x)`에서 `x`는 일반적으로 `(우선순위, 값)`의 형태로 입력됩니다. `heapq.heappop(pq)`를 호출할 때는 최소값인 `(우선순위, 값)`의 형태로 반환됩니다. 이렇게 하면 우선순위가 높은 값이 먼저 처리되는 것이 보장됩니다.
+
+`heapq.heappush(pq, (3, 'task3'))`와 같이 `(우선순위, 값)`의 형태로 값을 추가할 수 있습니다. 위 예제에서는 우선순위가 3인 'task3'을 추가합니다.
+
+```python
+import heapq
+
+pq = []
+heapq.heappush(pq, (3, 'task3'))  # 우선순위 3, 값 'task3' 추가
+heapq.heappush(pq, (1, 'task1'))  # 우선순위 1, 값 'task1' 추가
+heapq.heappush(pq, (4, 'task4'))  # 우선순위 4, 값 'task4' 추가
+heapq.heappush(pq, (1, 'task2'))  # 우선순위 1, 값 'task2' 추가
+while pq:
+    print(heapq.heappop(pq))  # 출력: (1, 'task1') (1, 'task2') (3, 'task3') (4, 'task4')
+```
+
+위 예제에서는 `while` 루프에서 `heapq.heappop(pq)`를 호출하여 최소값부터 차례대로 출력합니다. 따라서 출력 결과는 `(1, 'task1')`, `(1, 'task2')`, `(3, 'task3')`, `(4, 'task4')`의 순서로 출력됩니다.
+
+`heapq` 모듈은 이진 힙을 이용하여 우선순위 큐를 구현하므로, 시간복잡도는 O(log n)입니다. 따라서 대부분의 상황에서 효율적으로 동작합니다.
+
+## 다익스트라
+
+---
+
+파이썬에서 다익스트라(Dijkstra) 알고리즘을 구현하는 방법은 여러 가지가 있지만, 여기서는 우선순위 큐(priority queue)를 이용하여 구현하는 방법을 설명하겠습니다.
+
+다익스트라 알고리즘은 그리디 알고리즘으로, 시작 정점에서부터 가장 짧은 경로를 가지는 정점부터 차례로 선택해가며 최단 경로를 구하는 알고리즘입니다. 이 알고리즘은 최소 힙(min heap)을 사용하는 우선순위 큐를 이용하여 구현할 수 있습니다.
+
+아래는 파이썬으로 우선순위 큐를 이용한 다익스트라 알고리즘의 구현 예시입니다.
+
+### 예제 1)
+
+```python
+import heapq
+
+def dijkstra(graph, start):
+    pq = []  # 우선순위 큐
+    dist = {start: 0}  # 최단 경로 길이를 저장하는 딕셔너리
+    heapq.heappush(pq, (0, start))  # 시작 정점을 우선순위 큐에 추가
+
+    while pq:
+        cost, node = heapq.heappop(pq)
+        if node in dist and dist[node] < cost:
+            continue
+        for neighbor, weight in graph[node]:
+            new_cost = cost + weight
+            if neighbor not in dist or new_cost < dist[neighbor]:
+                dist[neighbor] = new_cost
+                heapq.heappush(pq, (new_cost, neighbor))
+
+    return dist
+```
+
+위의 코드에서 `graph`는 인접 리스트 형태로 주어진 그래프를 나타내며, `start`는 시작 정점입니다. `pq`는 우선순위 큐로, `(cost, node)` 형태로 저장됩니다. `dist`는 현재까지의 최단 경로 길이를 저장하는 딕셔너리입니다.
+
+우선순위 큐에서 가장 작은 경로 길이를 가지는 정점을 꺼내어 그 정점과 이어지는 간선을 순회합니다. 만약 이어지는 정점의 최단 경로가 아직 계산되지 않았거나, 현재까지 저장된 최단 경로보다 작은 경로를 찾으면 최단 경로를 갱신해주고, 우선순위 큐에 추가합니다. 이 때, `heapq.heappush` 함수를 이용하여 우선순위 큐에 추가하면 자동으로 최소 힙(min heap)이 유지됩니다.
+
+이렇게 구현된 다익스트라 알고리즘은 시간 복잡도가 O((V+E)logV)이며, V는 정점의 수, E는 간선의 수를 의미합니다.
+
+### 예제 2)
+
+```python
+import heapq
+import sys
+
+def dijkstra(graph, start):
+    # 시작 노드의 최단 경로는 0으로 초기화
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    # 시작 노드부터 탐색을 시작하기 위해 우선순위 큐에 삽입
+    queue = [(0, start)]
+
+    while queue:
+        # 현재 가장 최단 거리가 짧은 노드 선택
+        current_distance, current_node = heapq.heappop(queue)
+
+        # 이전에 이미 처리된 노드라면 무시
+        if distances[current_node] < current_distance:
+            continue
+
+        # 선택된 노드의 인접 노드들을 탐색하면서 거리 갱신
+        for adjacent, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[adjacent]:
+                distances[adjacent] = distance
+                heapq.heappush(queue, (distance, adjacent))
+
+    return distances
+```
+
+위 코드에서 `graph`는 다음과 같이 인접 리스트 형태로 주어집니다.
+
+```python
+graph = {
+    'A': {'B': 5, 'C': 1},
+    'B': {'A': 5, 'C': 2, 'D': 1},
+    'C': {'A': 1, 'B': 2, 'D': 4, 'E': 8},
+    'D': {'B': 1, 'C': 4, 'E': 3, 'F': 6},
+    'E': {'C': 8, 'D': 3},
+    'F': {'D': 6}
+}
+```
+
+위 코드에서는 distances라는 딕셔너리를 사용하여 시작 노드로부터의 거리를 저장합니다. 처음에는 시작 노드를 제외한 모든 노드들의 거리를 무한대(float('inf'))로 초기화합니다. queue라는 우선순위 큐에 시작 노드와 거리 0을 삽입합니다. 이후에는 다음과 같은 과정을 반복합니다.
+
+queue에서 거리가 가장 짧은 노드를 선택합니다.
+이전에 이미 선택된 노드라면 무시합니다.
+선택된 노드와 연결된 인접 노드들을 탐색하면서 거리를 갱신합니다. 이 때, 이전까지의 최단 거리보다 더 짧은 경로를 찾았다면 distances에 갱신된 거리를 저장하고, queue에 새로운 노드와 거리를 삽입합니다.
+
+이 과정을 반복하면서, 모든 노드들의 최단 경로를 찾아내고, distances 딕셔너리에 저장된 값을 반환합니다.
+
+## 이진트리
+
+---
+
+이진 트리(Binary Tree)는 각 노드가 최대 두 개의 자식 노드를 갖는 트리 자료구조입니다. 이진 트리는 컴퓨터 과학 분야에서 널리 사용되며, 예를 들어 검색 트리, 힙(Heap), 트라이(Trie) 등을 구현하는 데 사용됩니다.
+
+이진 트리를 파이썬으로 구현하는 방법은 여러 가지가 있지만, 가장 기본적인 방법은 노드 클래스와 트리 클래스를 따로 정의하는 것입니다. 각 노드는 자신의 값(value)과 왼쪽 자식 노드(left)와 오른쪽 자식 노드(right)를 갖습니다. 트리 클래스는 루트 노드(root)를 갖습니다.
+
+아래는 이진 트리를 파이썬으로 구현하는 예시 코드입니다.
+
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self, root_value):
+        self.root = Node(root_value)
+
+    def insert_left(self, parent_node, new_node_value):
+        if parent_node.left is None:
+            parent_node.left = Node(new_node_value)
+        else:
+            new_node = Node(new_node_value)
+            new_node.left = parent_node.left
+            parent_node.left = new_node
+
+    def insert_right(self, parent_node, new_node_value):
+        if parent_node.right is None:
+            parent_node.right = Node(new_node_value)
+        else:
+            new_node = Node(new_node_value)
+            new_node.right = parent_node.right
+            parent_node.right = new_node
+```
+
+위 코드에서 Node 클래스는 이진 트리의 노드를 나타내며, BinaryTree 클래스는 이진 트리를 나타냅니다. BinaryTree 클래스는 루트 노드를 초기화하는 생성자(**init**)와 노드를 삽입하는 insert_left와 insert_right 메서드를 포함합니다.
+
+insert_left와 insert_right 메서드는 각각 부모 노드(parent_node)와 새로운 노드의 값(new_node_value)을 인자로 받습니다. 만약 부모 노드의 왼쪽 또는 오른쪽 자식 노드가 비어있다면, 새로운 노드를 삽입합니다. 그렇지 않다면, 새로운 노드를 부모 노드의 왼쪽 또는 오른쪽 자식 노드로 삽입합니다.
+
+
+
+## 오일러 회로
+
+---
+
+오일러 회로(Euler circuit)는 그래프 이론에서 모든 간선을 한 번씩만 지나는 경로가 존재하는 그래프를 말합니다. 이러한 경로를 오일러 경로(Euler path)라고 부르기도 합니다.
+
+오일러 회로를 찾는 알고리즘 중 하나인 Hierholzer 알고리즘을 파이썬으로 구현해보겠습니다.
+
+Hierholzer 알고리즘은 다음과 같은 단계를 따릅니다.
+
+1. 임의의 시작점을 선택하여 stack에 넣습니다.
+
+2. stack에서 노드 하나를 꺼내 이 노드에 연결된 간선들 중 아직 방문하지 않은 간선을 찾습니다. 해당 간선을 따라 다음 노드로 이동합니다.
+
+3. 이동한 노드를 stack에 넣습니다. 이동한 간선은 삭제합니다.
+
+4. 2~3번 과정을 반복합니다. 만약 더 이상 이동할 간선이 없다면 해당 노드를 result 리스트에 추가합니다.
+
+5. stack이 비어있지 않은 동안 2~4번 과정을 반복합니다.
+
+6. result 리스트의 역순으로 정렬한 후 반환합니다.
+
+이러한 Hierholzer 알고리즘을 파이썬으로 구현한 코드는 다음과 같습니다. 아래 코드에서 그래프는 딕셔너리 형태로 주어집니다. 각 키는 그래프의 노드를 나타내며, 해당 노드와 연결된 노드들은 값으로 저장됩니다.
+
+
+
+```python
+def find_euler_circuit(graph):
+    # 시작점을 임의로 선택
+    start = list(graph.keys())[0]
+    stack = [start]
+    result = []
+    while stack:
+        node = stack[-1]
+        if graph[node]:
+            # 이동 가능한 노드가 있으면 이동
+            next_node = graph[node].pop()
+            stack.append(next_node)
+        else:
+            # 이동할 수 있는 노드가 없으면 결과 리스트에 추가
+            result.append(stack.pop())
+
+    # 결과 리스트를 역순으로 정렬하여 오일러 회로를 구함
+    return result[::-1]
+
+```
+
+위 코드에서는 시작점으로 그래프의 첫 번째 노드를 선택하고, stack에 해당 노드를 넣습니다. 이후 while문을 반복하며, stack에서 마지막으로 넣은 노드를 꺼냅니다. 해당 노드와 연결된 간선들 중 아직 방문하지 않은 간선을 찾아 다음 노드로 이동합니다. 이동한 노드를 stack에 넣습니다. 만약 더 이상 이동할 간선이 없다면 해당 노드를 result 리스트에 추가합니다.
