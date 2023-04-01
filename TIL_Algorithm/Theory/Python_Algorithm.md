@@ -145,10 +145,13 @@ bfs(1, adj_list)  # 1번 노드에서 BFS 탐색 시작
 DP(Dynamic Programming)는 이전에 계산한 값을 저장해 놓고 재활용하여 중복 계산을 줄이는 알고리즘 기법입니다. 파이썬에서는 DP를 구현하는 방법은 여러가지가 있습니다. 여기서는 Memoization 방식과 Bottom-up 방식을 예제 코드로 설명하겠습니다.
 
 <<<<<<< HEAD
+
 ### 
 
 =======
->>>>>>> 59713d2f5e9f0e5959f2268a96ac2de7aa43c0d3
+
+> > > > > > > 59713d2f5e9f0e5959f2268a96ac2de7aa43c0d3
+
 ### Memoization 방식
 
 Memoization은 이전에 계산한 값을 저장하고 재활용하는 방식입니다. 이전에 계산한 값이 필요할 때마다 값을 조회하여 사용합니다. Memoization 방식은 보통 재귀 함수와 함께 사용됩니다.
@@ -1014,8 +1017,6 @@ class BinaryTree:
 
 insert_left와 insert_right 메서드는 각각 부모 노드(parent_node)와 새로운 노드의 값(new_node_value)을 인자로 받습니다. 만약 부모 노드의 왼쪽 또는 오른쪽 자식 노드가 비어있다면, 새로운 노드를 삽입합니다. 그렇지 않다면, 새로운 노드를 부모 노드의 왼쪽 또는 오른쪽 자식 노드로 삽입합니다.
 
-
-
 ## 오일러 회로
 
 ---
@@ -1040,8 +1041,6 @@ Hierholzer 알고리즘은 다음과 같은 단계를 따릅니다.
 
 이러한 Hierholzer 알고리즘을 파이썬으로 구현한 코드는 다음과 같습니다. 아래 코드에서 그래프는 딕셔너리 형태로 주어집니다. 각 키는 그래프의 노드를 나타내며, 해당 노드와 연결된 노드들은 값으로 저장됩니다.
 
-
-
 ```python
 def find_euler_circuit(graph):
     # 시작점을 임의로 선택
@@ -1060,7 +1059,57 @@ def find_euler_circuit(graph):
 
     # 결과 리스트를 역순으로 정렬하여 오일러 회로를 구함
     return result[::-1]
-
 ```
 
 위 코드에서는 시작점으로 그래프의 첫 번째 노드를 선택하고, stack에 해당 노드를 넣습니다. 이후 while문을 반복하며, stack에서 마지막으로 넣은 노드를 꺼냅니다. 해당 노드와 연결된 간선들 중 아직 방문하지 않은 간선을 찾아 다음 노드로 이동합니다. 이동한 노드를 stack에 넣습니다. 만약 더 이상 이동할 간선이 없다면 해당 노드를 result 리스트에 추가합니다.
+
+
+
+## 해밀턴 회로
+
+---
+
+해밀턴 회로(Hamiltonian circuit)는 모든 정점을 한 번씩 방문하는 경로를 의미합니다. 이 경로는 시작점과 끝점이 같은 닫힌 경로여야 합니다.
+
+해밀턴 회로를 찾는 문제는 NP-완전 문제로, 모든 경우의 수를 탐색하는 완전 탐색 알고리즘으로만 해결할 수 있습니다. 하지만 그래프의 크기가 크면 시간이 매우 오래 걸리기 때문에, 보다 효율적인 알고리즘이 필요합니다.
+
+파이썬으로 해밀턴 회로를 구현하는 방법 중 하나는 백트래킹(backtracking) 알고리즘을 사용하는 것입니다. 백트래킹 알고리즘은 모든 가능한 경로를 탐색하되, 불필요한 경로는 더 이상 탐색하지 않고 되돌아가는(backtrack) 방식을 사용합니다.
+
+다음은 파이썬으로 해밀턴 회로를 찾는 백트래킹 알고리즘의 예시 코드입니다.
+
+
+
+```python
+def hamiltonian_circuit(graph):
+    def backtrack(current, path):
+        # 모든 정점을 방문했는지 확인
+        if len(path) == len(graph) and current == start:
+            return path
+
+        # 현재 정점에서 방문하지 않은 인접 정점들을 탐색
+        for neighbor in graph[current]:
+            if neighbor not in path:
+                path.append(neighbor)
+                result = backtrack(neighbor, path)
+                if result:
+                    return result
+                path.pop()
+
+        # 현재 정점에서 방문하지 않은 인접 정점이 없는 경우
+        return None
+
+    for start in graph:
+        path = [start]
+        result = backtrack(start, path)
+        if result:
+            return result
+
+    return None
+
+```
+
+
+
+위 코드에서 graph는 인접 리스트 형태의 그래프를 나타내며, 결과는 해밀턴 회로를 이루는 노드의 리스트입니다.
+
+백트래킹 알고리즘은 탐색 순서에 따라 결과가 달라질 수 있으므로, 최적해를 찾는 것은 보장되지 않습니다. 따라서, 보다 효율적인 해밀턴 회로 탐색 알고리즘을 사용해야 할 경우, 정확한 해를 찾을 수는 없지만 빠르게 결과를 도출할 수 있는 휴리스틱 알고리즘 등이 활용될 수 있습니다.
