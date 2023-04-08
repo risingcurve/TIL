@@ -1063,8 +1063,6 @@ def find_euler_circuit(graph):
 
 위 코드에서는 시작점으로 그래프의 첫 번째 노드를 선택하고, stack에 해당 노드를 넣습니다. 이후 while문을 반복하며, stack에서 마지막으로 넣은 노드를 꺼냅니다. 해당 노드와 연결된 간선들 중 아직 방문하지 않은 간선을 찾아 다음 노드로 이동합니다. 이동한 노드를 stack에 넣습니다. 만약 더 이상 이동할 간선이 없다면 해당 노드를 result 리스트에 추가합니다.
 
-
-
 ## 해밀턴 회로
 
 ---
@@ -1076,8 +1074,6 @@ def find_euler_circuit(graph):
 파이썬으로 해밀턴 회로를 구현하는 방법 중 하나는 백트래킹(backtracking) 알고리즘을 사용하는 것입니다. 백트래킹 알고리즘은 모든 가능한 경로를 탐색하되, 불필요한 경로는 더 이상 탐색하지 않고 되돌아가는(backtrack) 방식을 사용합니다.
 
 다음은 파이썬으로 해밀턴 회로를 찾는 백트래킹 알고리즘의 예시 코드입니다.
-
-
 
 ```python
 def hamiltonian_circuit(graph):
@@ -1105,10 +1101,7 @@ def hamiltonian_circuit(graph):
             return result
 
     return None
-
 ```
-
-
 
 위 코드에서 graph는 인접 리스트 형태의 그래프를 나타내며, 결과는 해밀턴 회로를 이루는 노드의 리스트입니다.
 
