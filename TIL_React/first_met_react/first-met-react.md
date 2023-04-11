@@ -1443,7 +1443,7 @@ class ConfirmButton extends React.Component {
 
     handleConfirm() {
         this.setState(prevState) => ({
-            isConfirmed: !prevState.isConfirmed,      
+            isConfirmed: !prevState.isConfirmed,  
         }))
     }
 
@@ -1454,7 +1454,7 @@ class ConfirmButton extends React.Component {
                 disabled=(this.state.isConfirmed)
             >
                 {this.state.isConfirmed ? "확인됨" : "확인하기"}
-            </button>          
+            </button>  
         )
     }
 }
@@ -2290,13 +2290,14 @@ function TemperatureInput(props) {
             <legend>
                 온도를 입력해 주세요(단위:{scaleNames[props.scale]}):
             </legend>
-            <input value={temperture} onChange={handleChange} />            
+            <input value={temperture} onChange={handleChange} />  
         </fieldset>
     )
 }
 ```
 
 ## 온도 변환 함수 작성하기
+
 ```jsx
 function toCelsius(fahrenheit) {
     return (fahrenheit - 32) * 5 / 9;
@@ -2321,9 +2322,64 @@ tryConvert('10.22', toFahrenheit);   // '50.396'을 리턴
 ```
 
 ## Shared State 적용하기
-- 하위 컴포넌트의 state를 공통 상위 컴포넌트로 올림!
-    ```jsx
-        // 변경 전 : <input value={temperture} onChange={handleChange} />
-        <input value={props.temperture} onChange={handleChange} />
 
-    ```
+- 하위 컴포넌트의 state를 공통 상위 컴포넌트로 올림!
+  ```jsx
+      function TemperatureInput(props) {
+          const handleChange = (event) => {
+              // 변경 전 : setTemperature(event.target.value);
+              props.onTemperatureChange(event.target.value);
+          }
+
+          return (
+              <fieldset>
+                  <legend>
+                      온도를 입력해 주세요(단위:{scaleNames[props.scale]}):
+                  </legend>
+                  // 변경 전 : <input value={temperture} onChange={handleChange} />
+                  <input value={props.temperture} onChange={handleChange} />   
+              </fieldset>
+          )
+      }
+  ```
+
+```jsx
+function Calculator(props) {
+    const [temperature, setTemperature] = useState(''); 
+    const [scale, setScale] = useState('c'); 
+
+    const handleCelsiusChange = (temperature) => {
+        setTemperature(temperature);
+        setScale('c');
+    }
+
+    const handleFahrenheitChange = (temperature) => {
+        setTemperature(temperature);
+        setScale('f');
+    }
+
+    const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+
+    return (
+        <div>
+            <TemperatureInput
+                scale="c"
+                temperature={celsius}
+                onTemperatureChange={handleCelsiusChange} />
+            <TemperatureInput
+                scale="f"
+                temperature={fahrenheit}
+                onTemperatureChange={handleFahrenheitChange} />
+            <BoilingVerdict
+                celsius={parseFloat(celcius)} />
+        </div>
+    )
+}
+
+```
+
+
+
+
+![](assets/20230411_174423_image.png)
