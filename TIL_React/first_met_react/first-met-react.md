@@ -3267,14 +3267,15 @@ export default DarkOrLight;
         - element를 절대 위치에 위치시킴.
 
 ### Flexbox
+
 ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-04-12-16-29-39-image.png)
-
-
 
 ## Font와 관련된 CSS 속성, 기타 많이 사용하는 CSS 속성
 
 ## styled-components
+
 ### styled-components 설치
+
 ```bash
 # npm
 npm install --save styled-components
@@ -3284,6 +3285,7 @@ yarn add styled-components
 ```
 
 ### 예시
+
 ```jsx
 import React from "react";
 import styled from 'styled-components';
@@ -3311,5 +3313,23 @@ function MainPage(props) {
 
 export default MainPage;
 ```
+
+### styled-components 사용법
+
+- tagged template literal
+
+- literal
+  
+  - 소스코드에 고정된 값
+  - 상수와는 다른 개념
+  - `let number = 20;`에서 20이 literal
+
+- template literal
+  - literal을 template 형태로 사용하는 문법
+  - "`"사용
+    ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-04-12-16-45-54-image.png)
+    ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-04-12-16-46-30-image.png)
+
+
 
 ## (실습) styled-components를 사용하여 스타일링 해보기
