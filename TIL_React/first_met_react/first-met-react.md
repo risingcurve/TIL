@@ -3325,11 +3325,10 @@ export default MainPage;
   - `let number = 20;`에서 20이 literal
 
 - template literal
+  
   - literal을 template 형태로 사용하는 문법
   - "`"사용
     ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-04-12-16-45-54-image.png)
     ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-04-12-16-46-30-image.png)
-
-
 
 ## (실습) styled-components를 사용하여 스타일링 해보기
