@@ -1,63 +1,27 @@
-import World from './World'
-import styles from "./Hello.module.css";
+import { useState } from "react";
+import UserName from "./UserName";
 
-export default function Hello() {
-  function showName() {
-    console.log("Mike");
-  }
-
-  function showAge(age) {
-    console.log(age);
-  }
-
-  function showText(txt) {
-    console.log(txt)
-  }
-
-  // function showText(e) {
-  //   console.log(e.target.value);
-  // }
-
+// export default function Hello(props) {
+export default function Hello({ age }) {
+  // console.log(props)
+  const [name, setName] = useState('Mike');
+  // const [age, setAge] = useState(props.age);
+  const msg = age > 19 ? "성인입니다." : "미성년자입니다.";
 
   return (
     <div>
-      <h1>Hello</h1>
-      <button onClick={showName}>Show name</button>
-      <button 
+      <h1>state</h1>
+      <h2 id="name">{name}{age}세</h2>
+      {/* <button onClick={changeName}>Change</button> */}
+      <UserName name={name} />
+      <button
         onClick={() => {
-          showAge(30);
+          setName(name === "Mike" ? "Jane" : "Mike");
+          // setAge(age + 1);
         }}
       >
-        Show age
+        Change
       </button>
-      <input
-        type='text'
-        onChange={e => {
-          const txt = e.target.value
-          showText(txt)
-        }}/>
-      {/* <input
-        type='text'
-        onChange={e => {
-          console.log(e.target.value)
-        }}/> */}
     </div>
-
-
-
-    // <div>
-    //   <h1
-    //     style={{
-    //       color: "#f00",
-    //       borderRight: "12px solid #000",
-    //       marginBottom: "50px",
-    //       opacity: 1,
-    //     }}
-    //   >
-    //     Hello
-    //   </h1>
-    //   <div className={styles.box}>Hello</div>
-
-    // </div>
   )
 }
