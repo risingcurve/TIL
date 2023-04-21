@@ -1,5 +1,5 @@
 import React from 'react'
-import RecoilRoot from 'recoil'
+import { RecoilRoot } from 'recoil'
 import TodoList from './TodoList'
 
 
