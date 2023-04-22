@@ -25,9 +25,11 @@ export default function Home() {
       <Head>
         <title>HOME | 코딩앙마</title>
       </Head>
-      <div>
-        <ItemList list={list} />
-      </div>
+      <Header as="h3" style={{ paddingTop: 40 }}>
+        베스트 상품
+      </Header>
+      <Divider />
+      <ItemList list={list} />
     </div>
   )
 }
