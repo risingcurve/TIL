@@ -17,7 +17,7 @@ export default function Todos() {
       <ul>
         {query.data.map(todo => (
           <li key={todo.id}>{todo.title}</li>
-        ))}
+        ))} ;
       </ul>
 
       <button
