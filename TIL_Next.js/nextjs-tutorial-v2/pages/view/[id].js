@@ -43,7 +43,7 @@ import { Loader } from 'semantic-ui-react';
 //   )
 // }
 
-const Post = ({ item, name }) => {
+const Post = ({ item }) => {
   return (
     <div>
       {item && (
@@ -52,13 +52,16 @@ const Post = ({ item, name }) => {
           <title>{item.name}</title>
           <meta name="description" content={item.description}></meta>
         </Head>
-        {name} 환경입니다.
         <Item item={item} />
       </div>
       )}
     </div>
   )
 }
+
+
+
+
 
 export default Post
 
@@ -71,7 +74,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       item: data,
-      name: process.env.name
     },
   }
 }
