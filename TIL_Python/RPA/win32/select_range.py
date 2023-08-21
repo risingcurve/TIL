@@ -65,3 +65,15 @@ ws.Range("A:C").CurrentRegion.Select()
 # 시트 사용 영역 선택하기
 ws.UsedRange.CurrentRegion.Select()
 
+# A1부터 입력된 데이터가 연속된 영역 선택
+ws.Range("A1").CurrentRegion.Select()
+
+
+# 4. SpecialCells
+# SpecialCells는 특정 조건을 만족하는 셀을 선택
+# ex) 데이터만 있는 셀만 선택하기, 빈 공간 선택하기
+
+
+
+
+
