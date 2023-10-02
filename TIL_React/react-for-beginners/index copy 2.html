@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      // React.useState()의 괄호 안에 들어가는 값이 default 값
+      // useState에서 [(관리할 상태), (함수)]
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      // onChange는 이벤트 리스너의 역할
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFilp = () => {
+        reset();
+        setInverted((current) => !current);
+      }
+      return (
+        <div>
+          <h1 className="hi">Super Converter</h1>
+          <div>
+            <lable htmlFor="minutes">Amount</lable>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              // onChange가 없으면 default 값에서 변경이 안 됨.
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <h4>You want to convert {amount}</h4>
+          <div>
+            <lable htmlFor="hours">Hours</lable>
+            <input
+              value={inverted ? amount : amount / 60}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFilp}>{inverted ? "Turn Back" : "Invert"}</button>
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
